@@ -1,3 +1,5 @@
+package com.example.lpf.finaldemo;
+
 import android.support.v7.app.AppCompatActivity;
 
 /**
