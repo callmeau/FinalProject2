@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+    <Button
+        android:id="@+id/btnTestSql"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/testSQL"/>
+    <Button
+        android:id="@+id/btnList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/dormList"/>
+    <TextView
+        android:id="@+id/tvTestResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnTestSql"
+        android:text="@string/hello_world" />
+
+</RelativeLayout>

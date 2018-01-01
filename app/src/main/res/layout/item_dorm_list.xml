@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginTop="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="8dp"
+        android:foreground="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/cardBg"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/dorm_name"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:text="716"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="3dp"
+                android:layout_height="fill_parent"
+                android:background="#bebbbb"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/cardBg"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/stu1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="张仁杰" />
+
+                <TextView
+                    android:id="@+id/stu2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="张仁杰"/>
+
+                <TextView
+                    android:id="@+id/stu3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="张仁杰"/>
+
+                <TextView
+                    android:id="@+id/stu4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="张仁杰"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
