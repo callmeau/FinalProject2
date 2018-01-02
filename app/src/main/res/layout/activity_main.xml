@@ -20,5 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnTestSql"
         android:text="@string/hello_world" />
+    <Button
+        android:id="@+id/btnInputInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:text="填写信息"/>
 
 </RelativeLayout>

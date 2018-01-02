@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
     private View btnTest;
     private View btnList;
+    private View btnEdit;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
     private int building_id = 1;
+    private String stu_account = "stu1";//学生账号
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btnTest=findViewById(R.id.btnTestSql);
         btnList=findViewById(R.id.btnList);
+        btnEdit=findViewById(R.id.btnInputInfo);
         tvTestResult = (TextView)findViewById(R.id.tvTestResult);
-
         btnTest.setOnClickListener(getClickEvent());
+        btnEdit.setOnClickListener(getClickEvent());
         btnList.setOnClickListener(getClickEvent());
     }
 
@@ -48,11 +51,17 @@ public class MainActivity extends AppCompatActivity {
                 if(v==btnTest){
                     test();
                 }
-                if(v==btnList){
+                else if(v==btnList){
                     Intent intent = new Intent(MainActivity.this, DormListActivity.class);
                     intent.putExtra("b_id", building_id);
                     startActivity(intent);
                 }
+                else if(v==btnEdit){
+                    Intent intent = new Intent(MainActivity.this,edit_informationActivity.class);
+                    intent.putExtra("stu_account",stu_account);
+                    startActivity(intent);
+                }
+
             }
         };
     }

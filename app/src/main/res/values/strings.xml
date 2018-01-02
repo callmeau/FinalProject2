@@ -5,4 +5,5 @@
     <string name="testSQL">测试SQL</string>
     <string name="clean">清除数据</string>
     <string name="dormList">宿舍列表</string>
+    <string name="StuInfo">填写信息</string>
 </resources>
