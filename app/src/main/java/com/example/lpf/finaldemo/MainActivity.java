@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private View btnList;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
-    private int building_id = 1;
+    private String a_account = "FJR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(v==btnList){
                     Intent intent = new Intent(MainActivity.this, DormListActivity.class);
-                    intent.putExtra("b_id", building_id);
+                    intent.putExtra("a_account", a_account.toString());
                     startActivity(intent);
                 }
             }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static class MyHandler extends Handler {
+    static class MyHandler extends Handler {
         private final WeakReference<MainActivity> mActivity;
 
         public MyHandler(MainActivity activity) {
