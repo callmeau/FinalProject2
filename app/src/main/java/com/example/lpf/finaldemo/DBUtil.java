@@ -3,6 +3,7 @@ package com.example.lpf.finaldemo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -211,6 +212,8 @@ public class DBUtil
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
+            stmt.close();
+            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println("e");
@@ -219,20 +222,83 @@ public class DBUtil
         }
     }
 
-    public static void Order(String num,String id){
+    public static void Order(String num,int id){
         try {
             String sql = String.format("INSERT INTO WaterOrder (W_num,W_date,W_iffinish,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    num,"0",id);  ;
+                    num,"0",Integer.toString(id));  ;
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
+            stmt.close();
+            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println("e");
             System.out.println("上传失败");
             System.out.println("-----------------------");
         }
+    }
+
+    public static void repair(String title,String content,int id){
+        try {
+            String sql = String.format("INSERT INTO WaterOrder (R_detail,R_starttime,R_ifrepair,W_dormId)" +
+                            "Values('%s',GETDATE(),'%s','%s')",
+                    title+": "+content,"0",Integer.toString(id));  ;
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("e");
+            System.out.println("上传失败");
+            System.out.println("-----------------------");
+        }
+    }
+
+    public static void uploadImage(byte[] img,String account){
+        try {
+            String sql = "UPDATE student SET S_profile = ?  where S_account = ?;";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            PreparedStatement pStatement = conn.prepareStatement(sql);
+            pStatement.setBytes(1, img);//设置第一个问号
+            pStatement.setString(2, account);
+            pStatement.execute();//执行
+
+            pStatement.close();
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("上传失败");
+            System.out.println("-----------------------");
+        }
+
+    }
+    public static byte[] loadImage(String account){
+        byte[] b = new byte[0];
+        try {
+            String sql = "SELECT * from student  where S_account = ?;";
+            Connection conn = getSQLConnection();
+            PreparedStatement pStatement = conn.prepareStatement(sql);
+            pStatement.setString(1, account);
+            ResultSet rs =  pStatement.executeQuery();//执行
+            if (rs.next())
+            b=rs.getBytes("S_profile");
+            rs.close();
+            pStatement.close();
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("加载失败");
+            System.out.println("-----------------------");
+        }
+        return b;
+
     }
 
 
