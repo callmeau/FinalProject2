@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private View btnTest;
     private View btnList;
     private View btnEdit;
+    private View order;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
     private int building_id = 1;
@@ -34,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btnTest=findViewById(R.id.btnTestSql);
         btnList=findViewById(R.id.btnList);
+        order = findViewById(R.id.order);
         btnEdit=findViewById(R.id.btnInputInfo);
         tvTestResult = (TextView)findViewById(R.id.tvTestResult);
         btnTest.setOnClickListener(getClickEvent());
         btnEdit.setOnClickListener(getClickEvent());
         btnList.setOnClickListener(getClickEvent());
+        order.setOnClickListener(getClickEvent());
     }
 
     private View.OnClickListener getClickEvent(){
@@ -58,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(v==btnEdit){
                     Intent intent = new Intent(MainActivity.this,edit_informationActivity.class);
+                    intent.putExtra("stu_account",stu_account);
+                    startActivity(intent);
+                }
+                else if(v==order){
+                    Intent intent = new Intent(MainActivity.this,Order_editActivity.class);
                     intent.putExtra("stu_account",stu_account);
                     startActivity(intent);
                 }

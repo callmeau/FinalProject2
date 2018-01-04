@@ -23,9 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DormListActivity"></activity>
-        <activity android:name=".edit_informationActivity">
-
-        </activity>
+        <activity android:name=".edit_informationActivity"></activity>
+        <activity android:name=".Order_editActivity"></activity>
     </application>
 
 </manifest>
