@@ -43,52 +43,103 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
+        <LinearLayout
             android:id="@+id/school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="院系："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view3" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/school1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="院系："
+                />
 
-        <TextView
+            <EditText
+                android:id="@+id/school2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数据科学与计算机学院"
+                android:focusable="false"
+                android:minWidth="120dp"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/school"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="专业："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/school" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/major1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专业："
+                />
+            <EditText
+                android:id="@+id/major2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="软件工程"
+                android:focusable="false"
+                android:minWidth="120dp"
+                android:textSize="13sp" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/cls"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/major"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="班级："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/major" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/cls1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="班级："
+                />
+            <EditText
+                android:id="@+id/cls2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12班"
+                android:focusable="false"
+                android:minWidth="120dp"
+                android:textSize="13sp"
+                />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:text="作息习惯"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cls" />
+            app:layout_constraintTop_toBottomOf="@+id/cls">
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:text="作息习惯"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
 
         <View
             android:id="@+id/view4"
@@ -105,27 +156,58 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/wake_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="起床时间："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view4" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/wake_time1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="起床时间："
+                />
+            <EditText
+                android:id="@+id/wake_time2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7：00～8：00"
+                android:focusable="false"
+                android:minWidth="120dp"
+                android:textSize="13sp"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/sleep_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wake_time"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="就寝时间："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wake_time" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/sleep_time1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="就寝时间："
+                />
+            <EditText
+                android:id="@+id/sleep_time2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21：00～22：00"
+                android:focusable="false"
+                android:minWidth="120dp"
+                android:textSize="13sp"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView14"
@@ -156,38 +238,84 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/hobby1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view5"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="爱好1："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view5" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/hobby11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="爱好1："
+                />
+            <EditText
+                android:id="@+id/hobby12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体育"
+                android:focusable="false"
+                android:minWidth="60dp"
+                android:textSize="13sp"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/hobby2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hobby1"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="爱好2："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hobby1" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/hobby21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="爱好2："
+                />
+            <EditText
+                android:id="@+id/hobby22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电影"
+                android:focusable="false"
+                android:minWidth="60dp"
+                android:textSize="13sp"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/hobby3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hobby2"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="爱好3："
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hobby2" />
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/hobby31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="爱好3："
+                />
+            <EditText
+                android:id="@+id/hobby32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文学"
+                android:focusable="false"
+                android:minWidth="60dp"
+                android:textSize="13sp"
+                android:layout_marginTop="1dp"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView18"
@@ -217,18 +345,33 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-        <TextView
+        <LinearLayout
             android:id="@+id/future"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:text="未来规划："
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view6" />
+            app:layout_constraintTop_toBottomOf="@+id/view6"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/future1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未来规划："
+                />
+            <EditText
+                android:id="@+id/future2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="考研"
+                android:minWidth="60dp"
+                android:textSize="13sp"
+                android:focusable="false"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
 
 
     </android.support.constraint.ConstraintLayout>
