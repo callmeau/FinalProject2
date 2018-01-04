@@ -125,46 +125,17 @@
 
         </View>
 
-        <include
-            layout="@layout/student_item_layout"
+        <ListView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/water_list"
             android:layout_alignStart="@+id/repair_list"
             android:layout_below="@+id/line"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:id="@+id/stu1"/>
-        <include
-            layout="@layout/student_item_layout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
-            android:layout_below="@+id/stu1"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:id="@+id/stu2"/>
-        <include
-            layout="@layout/student_item_layout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
-            android:layout_below="@+id/stu2"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:id="@+id/stu3"/>
-        <include
-            layout="@layout/student_item_layout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
-            android:layout_below="@+id/stu3"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:id="@+id/stu4"/>
+            android:id="@+id/stuList">
+        </ListView>
+
     </RelativeLayout>
 </LinearLayout>
 
