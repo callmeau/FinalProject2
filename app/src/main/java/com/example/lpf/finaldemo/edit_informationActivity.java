@@ -1,12 +1,20 @@
 package com.example.lpf.finaldemo;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
@@ -26,6 +34,10 @@ import com.airsaid.pickerviewlibrary.OptionsPickerView;
 import com.hamsa.twosteppickerdialog.OnStepDataRequestedListener;
 import com.hamsa.twosteppickerdialog.OnStepPickListener;
 import com.hamsa.twosteppickerdialog.TwoStepPickerDialog;
+import com.lwkandroid.imagepicker.ImagePicker;
+import com.lwkandroid.imagepicker.data.ImageBean;
+import com.lwkandroid.imagepicker.data.ImagePickType;
+import com.lwkandroid.imagepicker.utils.GlideImagePickerDisplayer;
 
 import net.lemonsoft.lemonbubble.LemonBubble;
 import net.lemonsoft.lemonbubble.enums.LemonBubbleLayoutStyle;
@@ -38,6 +50,10 @@ import net.lemonsoft.lemonhello.interfaces.LemonHelloActionDelegate;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +69,8 @@ public class edit_informationActivity extends AppCompatActivity {
     private static EditText textName;
     private static TextView dormname;
     private static TextView dor_no;
+    private ImageView profile;
+    private byte[]pic;
     private CardView c1;
     private CardView c2;
     private Button confirm;
@@ -83,7 +101,9 @@ public class edit_informationActivity extends AppCompatActivity {
     private String account;
     private DBUtil dbUtil;
     private final edit_informationActivity.MyHandler mHandler = new edit_informationActivity.MyHandler(this);
-
+    private static final int TAKE_PHOTO=1;
+    private static final int PHOTO_REQUEST=2;
+    private static final int PHOTO_CLIP=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,28 +123,29 @@ public class edit_informationActivity extends AppCompatActivity {
         classnum = (EditText) findViewById(R.id.cls2);
         major = (EditText) findViewById(R.id.major2);
         hobby1 = (EditText) findViewById(R.id.hobby12);
+        profile = (ImageView) findViewById(R.id.imageView2);
         hobby2 = (EditText) findViewById(R.id.hobby22);
         hobby3 = (EditText) findViewById(R.id.hobby32);
         waketime = (EditText) findViewById(R.id.wake_time2);
         sleeptime = (EditText) findViewById(R.id.sleep_time2);
         plan = (EditText)findViewById(R.id.future2) ;
-        textName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case KeyEvent.ACTION_UP: {
-                        textName.setFocusable(true);
-                        textName.setFocusableInTouchMode(true);
-                        textName.requestFocus();
-                        edit_informationActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                        textName.setSelection(textName.length());
-                    }
-
-                }
-                return false;
-            }
-
-        });
+//        textName.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case KeyEvent.ACTION_UP: {
+//                        textName.setFocusable(true);
+//                        textName.setFocusableInTouchMode(true);
+//                        textName.requestFocus();
+//                        edit_informationActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                        textName.setSelection(textName.length());
+//                    }
+//
+//                }
+//                return false;
+//            }
+//
+//        });
         data = new ArrayList<>();
         selection = new ArrayList<>();
         selection2 = new ArrayList<>();
@@ -227,6 +248,7 @@ public class edit_informationActivity extends AppCompatActivity {
         waketime.setOnClickListener(getClickEvent());
         sleeptime.setOnClickListener(getClickEvent());
         plan.setOnClickListener(getClickEvent());
+        profile.setOnClickListener(getClickEvent());
 
     }
 
@@ -254,11 +276,63 @@ public class edit_informationActivity extends AppCompatActivity {
                     picker3.show();
                     chosen = 3;
                 }
+                else if (v==profile){
+                    final String[] items=new String[]{"拍摄","从相册中选择"};
+
+                    AlertDialog.Builder builder=new AlertDialog.Builder(edit_informationActivity.this);
+                    builder.setIcon(R.mipmap.image).setTitle("添加图片")
+                            .setItems(items, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (which==0){
+                                        getPicFromCamera();
+
+
+                                    }
+                                    else {
+                                        if (ContextCompat.checkSelfPermission(edit_informationActivity.this,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                                            ActivityCompat.requestPermissions(edit_informationActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                                        }
+                                        else {
+                                            getPicFromPhoto();
+                                        }
+
+                                    }
+                                }
+                            });
+                    builder.create().show();
+                }
 
             }
 
 
         };
+    }
+
+    private  void getPicFromCamera(){
+        new ImagePicker()
+                .pickType(ImagePickType.ONLY_CAMERA) //设置选取类型(拍照ONLY_CAMERA、单选SINGLE、多选MUTIL)
+                .maxNum(9) //设置最大选择数量(此选项只对多选生效，拍照和单选都是1，修改后也无效)
+                .needCamera(true) //是否需要在界面中显示相机入口(类似微信那样)
+                .cachePath(String.valueOf(getExternalCacheDir())) //自定义缓存路径(拍照和裁剪都需要用到缓存)
+                .doCrop(1,1,300,300) //裁剪功能需要调用这个方法，多选模式下无效，参数：aspectX,aspectY,outputX,outputY
+                .displayer(new GlideImagePickerDisplayer())
+                .start(this,TAKE_PHOTO);
+
+    }
+    private void getPicFromPhoto() {
+//        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+//        intent.setType("image/*");
+//        startActivityForResult(intent, PHOTO_REQUEST);
+        new ImagePicker()
+                .pickType(ImagePickType.SINGLE) //设置选取类型(拍照ONLY_CAMERA、单选SINGLE、多选MUTIL)
+                .maxNum(9) //设置最大选择数量(此选项只对多选生效，拍照和单选都是1，修改后也无效)
+                .needCamera(true) //是否需要在界面中显示相机入口(类似微信那样)
+                .cachePath(String.valueOf(getExternalCacheDir())) //自定义缓存路径(拍照和裁剪都需要用到缓存)
+                .doCrop(1,1,300,300) //裁剪功能需要调用这个方法，多选模式下无效，参数：aspectX,aspectY,outputX,outputY
+                .displayer(new GlideImagePickerDisplayer())
+                .start(this,PHOTO_REQUEST);
     }
 
     //private void onEditclick(){
@@ -331,11 +405,17 @@ public class edit_informationActivity extends AppCompatActivity {
 //                String ret= DBUtil.QueryUsers("select top 3 * from Users");
                 stuInfo = dbUtil.QueryStu(account);
                 System.out.println(account);
-//                System.out.println(stuInfo.get(0));
+                System.out.println(stuInfo.get(0));
+                Message msg1 = new Message();
+                pic = dbUtil.loadImage(account);//图片
+                msg1.what=1003;
+                msg1.obj=pic;
+                mHandler.sendMessage(msg1);
                 Message msg = new Message();
                 msg.what = 1001;
                 msg.obj = stuInfo;
                 mHandler.sendMessage(msg);
+
             }
         });
         thread.start();
@@ -351,6 +431,7 @@ public class edit_informationActivity extends AppCompatActivity {
                        sleeptime.getText().toString(),waketime.getText().toString(),
                        hobby1.getText().toString(),hobby2.getText().toString(),hobby3.getText().toString(),
                        plan.getText().toString(),account);
+               if (pic.length!=0)  dbUtil.uploadImage(pic,account);
                 Message msg = new Message();
                 msg.what = 1002;
                 mHandler.sendMessage(msg);
@@ -386,7 +467,93 @@ public class edit_informationActivity extends AppCompatActivity {
                 }))
                 .show(edit_informationActivity.this);;
     }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        switch (requestCode){
+            case TAKE_PHOTO:
+                if (resultCode==RESULT_OK)
+                {
+                    // try{
+//                        Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+//                        imageView.setImageBitmap(bitmap);
+//                        File file=new File(getExternalCacheDir()
+//                        +"/output_image.jpg");
+//                    if (file.exists()){
+//                        photoClip(Uri.fromFile(file));
+//
+//                    }
+                    if (data!=null){
+                        String path = null;
+                        List<ImageBean> res=data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
+                        for (ImageBean imageBean : res)
+                        {
+                            path=imageBean.getImagePath();
+                        }
+                        try {
+                            FileInputStream fis = new FileInputStream(path);
+                            Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                            profile.setImageBitmap(bitmap);
+                            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                            pic=baos.toByteArray();//转换成二进制
+                        }
+                        catch(FileNotFoundException e){
+                            e.printStackTrace();
+                        }
 
+                    }
+                    //}
+//                    catch (FileNotFoundException e){
+//                        e.printStackTrace();
+//                    }
+                }
+                break;
+            case PHOTO_REQUEST:
+                if (resultCode==RESULT_OK){
+//                    if (Build.VERSION.SDK_INT>=19){
+//                        handleImageOnkitKat(data);
+//                    }
+//                    else {
+//                        handleImageBeforeKitKat(data);
+//                    }
+                    if (data!=null){
+                        String path = null;
+                        List<ImageBean> res=data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
+                        for (ImageBean imageBean : res)
+                        {
+                            path=imageBean.getImagePath();
+                        }
+                        try {
+                            FileInputStream fis = new FileInputStream(path);
+                            Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                            profile.setImageBitmap(bitmap);
+                            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                            pic=baos.toByteArray();
+                        }
+                        catch(FileNotFoundException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+                break;
+//            case PHOTO_CLIP:
+//                if (data!=null){
+//                    Bundle extras=data.getExtras();
+//                    if (extras!=null){
+//                        Bitmap photo=extras.getParcelable("data");
+//                        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+//                        photo.compress(Bitmap.CompressFormat.JPEG,100,baos);
+//                       profile=baos.toByteArray();
+//                        imageView.setImageBitmap(photo);
+//                    }
+//                }
+
+            default:
+                break;
+        }
+    }
 
     private  class MyHandler extends Handler {
         private final WeakReference<edit_informationActivity> mActivity;
@@ -425,10 +592,25 @@ public class edit_informationActivity extends AppCompatActivity {
                         }, 1500);
                         //LemonBubble.showRight(edit_informationActivity.this, "保存成功！", 2000);
                         break;
+                    case 1003:
+                        pic =(byte[]) msg.obj;
+                        if (pic!=null) {
+                            Bitmap btm = Bytes2Bimap(pic);
+                            profile.setImageBitmap(btm);//加载头像
+                        }
+                        break;
                     default:
                         break;
                 }
             }
+        }
+    }
+
+    public Bitmap Bytes2Bimap(byte[] b) {//转化为bitmap
+        if (b.length != 0) {
+            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        } else {
+            return null;
         }
     }
 }

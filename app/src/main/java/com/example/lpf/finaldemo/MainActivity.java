@@ -23,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private View btnList;
     private View btnEdit;
     private View order;
+    private View repair;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
     private int building_id = 1;
     private String stu_account = "stu1";//学生账号
+    private int dorm_id=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
         btnTest=findViewById(R.id.btnTestSql);
         btnList=findViewById(R.id.btnList);
         order = findViewById(R.id.order);
+        repair = findViewById(R.id.repair);
         btnEdit=findViewById(R.id.btnInputInfo);
         tvTestResult = (TextView)findViewById(R.id.tvTestResult);
         btnTest.setOnClickListener(getClickEvent());
         btnEdit.setOnClickListener(getClickEvent());
         btnList.setOnClickListener(getClickEvent());
         order.setOnClickListener(getClickEvent());
+        repair.setOnClickListener(getClickEvent());
     }
 
     private View.OnClickListener getClickEvent(){
@@ -66,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(v==order){
                     Intent intent = new Intent(MainActivity.this,Order_editActivity.class);
-                    intent.putExtra("stu_account",stu_account);
+                    intent.putExtra("dorm_id",dorm_id);
+                    startActivity(intent);
+                }
+                else if(v==repair){
+                    Intent intent = new Intent(MainActivity.this,repair_edit.class);
+                    intent.putExtra("dorm_id",dorm_id);
                     startActivity(intent);
                 }
 
