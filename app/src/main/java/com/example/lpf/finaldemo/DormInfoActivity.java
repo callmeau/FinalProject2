@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -32,6 +33,8 @@ public class DormInfoActivity extends AppCompatActivity {
 
     private static ListView rListView;
     private static ListView wListView;
+    private static ListView sListView;
+    private static SimpleAdapter sAdapter;
     private static LvAdapter rAdapter;
     private static LvAdapter wAdapter;
     private static List<Map<String, String>> repairDatas = new ArrayList<>();
@@ -60,8 +63,6 @@ public class DormInfoActivity extends AppCompatActivity {
         btn_update2 = (ImageView)findViewById(R.id.btn_update2);
         check_box = (CheckBox)findViewById(R.id.order_check);
 
-//        building_name.setText(building_id);
-//        dormitory_name.setText(dorm_id);
 
 //        rAdapter = new LvAdapter(repairDatas);
 //        rListView.setAdapter(rAdapter);

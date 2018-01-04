@@ -20,5 +20,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnTestSql"
         android:text="@string/hello_world" />
+    <Button
+        android:id="@+id/btnInputInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:text="填写信息"/>
+    <Button
+        android:id="@+id/order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:text="订水"/>
+    <Button
+        android:id="@+id/repair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="250dp"
+        android:text="报修"/>
 
 </RelativeLayout>
