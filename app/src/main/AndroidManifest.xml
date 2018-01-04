@@ -31,10 +31,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".DormListActivity"></activity>
         <activity android:name=".edit_informationActivity"></activity>
         <activity android:name=".Order_editActivity"></activity>
-        <activity android:name=".repair_edit"></activity>
+        <activity android:name=".repair_edit"></activity>     
+        <activity android:name=".DormInfoActivity"></activity>
+
     </application>
 
 </manifest>

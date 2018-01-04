@@ -21,7 +21,7 @@
             android:layout_gravity="center">
 
             <TextView
-                android:id="@+id/dorm_name"
+                android:id="@+id/dorm_no"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

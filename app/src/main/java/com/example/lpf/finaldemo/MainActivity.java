@@ -26,9 +26,13 @@ public class MainActivity extends AppCompatActivity {
     private View repair;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
+
     private int building_id = 1;
     private String stu_account = "stu1";//学生账号
     private int dorm_id=1;
+
+    private String a_account = "FJR";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(v==btnList){
                     Intent intent = new Intent(MainActivity.this, DormListActivity.class);
-                    intent.putExtra("b_id", building_id);
+                    intent.putExtra("a_account", a_account.toString());
                     startActivity(intent);
                 }
                 else if(v==btnEdit){
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static class MyHandler extends Handler {
+    static class MyHandler extends Handler {
         private final WeakReference<MainActivity> mActivity;
 
         public MyHandler(MainActivity activity) {
