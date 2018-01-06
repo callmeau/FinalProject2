@@ -8,6 +8,7 @@ package com.example.lpf.finaldemo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.solo.library.SlideBaseAdapter;
@@ -54,6 +55,7 @@ public class LvAdapter extends SlideBaseAdapter {
             holder.hint2 = (TextView) convertView.findViewById(R.id.hint2);
             holder.date = (TextView) convertView.findViewById(R.id.order_date);
             holder.detail = (TextView) convertView.findViewById(R.id.order_detail);
+            holder.check_done = (CheckBox) convertView.findViewById(R.id.order_check);
             holder.mSlideTouchView = (SlideTouchView) convertView.findViewById(R.id.mSlideTouchView);
             convertView.setTag(holder);
             bindSlideState(holder.mSlideTouchView); //必须调用
@@ -68,6 +70,11 @@ public class LvAdapter extends SlideBaseAdapter {
         holder.hint2.setText(String.valueOf(list.get(position).get("hint2")));
         holder.date.setText(String.valueOf(list.get(position).get("o_date")));
         holder.detail.setText(String.valueOf(list.get(position).get("o_detail")));
+        if(!String.valueOf(list.get(position).get("check_done")).equals("0")){
+            holder.check_done.setChecked(true);
+        }else{
+            holder.check_done.setChecked(false);
+        }
         return convertView;
     }
 
@@ -77,6 +84,7 @@ public class LvAdapter extends SlideBaseAdapter {
         TextView hint2;
         TextView date;
         TextView detail;
+        CheckBox check_done;
         SlideTouchView mSlideTouchView;
     }
 }

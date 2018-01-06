@@ -186,11 +186,9 @@ public class DormListActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
             Map<String, Object> temp = datas.get(position);
             String dorm_id = temp.get("dorm_id").toString();
-            String building_id = temp.get("building_id").toString();
 
             Intent intent = new Intent(DormListActivity.this, DormInfoActivity.class);
             intent.putExtra("dorm_id", dorm_id);
-            intent.putExtra("building_id", building_id);
             intent.putExtra("role", "admin");
             startActivity(intent);
         }
