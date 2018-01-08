@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hamsa.twosteppickerdialog.OnStepDataRequestedListener;
 import com.hamsa.twosteppickerdialog.OnStepPickListener;
@@ -42,17 +43,19 @@ public class RoomUpdateActivity extends AppCompatActivity{
     private static EditText name1;
     private static EditText room2;
     private static EditText name2;
-    private String stu11,stu12,stu13,stu14,stu21,stu22,stu23,stu24;
+    //private String stu11,stu12,stu13,stu14,stu21,stu22,stu23,stu24;//名字
+    private String sc11,sc12,sc13,sc14,sc21,sc22,sc23,sc24;//学生账号
     private int dorm1,dorm2;
     private TwoStepPickerDialog pickerDialog;
     private int chosen;
-    private List<Map<String, Object>> dormList;
-    private List<String> roomselect;
-    private List<String> memberselect;
+    private List<Map<String, Object>> dormList = new ArrayList<>();
+    private List<String> roomselect = new ArrayList<>();
+    private List<String> memberselect = new ArrayList<>();
+    private List<String> sc = new ArrayList<>();//学生账号
     private Button confirm;
     private final MyHandler myHandler = new MyHandler(this);
     private DBUtil dbUtil;
-    private boolean flag = false;
+    //private boolean flag = false;
     private String a_account;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -66,9 +69,10 @@ public class RoomUpdateActivity extends AppCompatActivity{
     private void init(){
         a_account = this.getIntent().getStringExtra("a_account");
         dbUtil = new DBUtil();
-        dormList = new ArrayList<>();
-        roomselect = new ArrayList<>();
-        memberselect = new ArrayList<>();
+//        dormList = new ArrayList<>();
+//        roomselect = new ArrayList<>();
+//        memberselect = new ArrayList<>();
+//        sc = new ArrayList<>();
         System.out.println("inti==============================================");
         dataInit();
         room1 = (EditText)findViewById(R.id.roomnum11);
@@ -95,58 +99,90 @@ public class RoomUpdateActivity extends AppCompatActivity{
                     public void onStepPicked(int i, int i1) {
                         if(chosen==1){
                             System.out.println("room1set");
-                            room1.setText(roomselect.get(i));
-                            Map<String,Object> temp = dormList.get(i);
-                            String dorm_id1 = temp.get("dorm_id").toString();
-                            dorm1 = Integer.parseInt(dorm_id1);
-                            name1.setText(memberselect.get(i1));
-                            stu11 = memberselect.get(i1).toString();
-                            if(i1==0){
-                                stu12 = memberselect.get(1).toString();
-                                stu13 = memberselect.get(2).toString();
-                                stu14 = memberselect.get(3).toString();
-                            }
-                            else if (i1==1){
-                                stu12 = memberselect.get(0).toString();
-                                stu13 = memberselect.get(2).toString();
-                                stu14 = memberselect.get(3).toString();
-                            }
-                            else if (i1==2) {
-                                stu12 = memberselect.get(0).toString();
-                                stu13 = memberselect.get(1).toString();
-                                stu14 = memberselect.get(3).toString();
-                            }
-                            else if (i1==3) {
-                                stu12 = memberselect.get(0).toString();
-                                stu13 = memberselect.get(1).toString();
-                                stu14 = memberselect.get(2).toString();
+                            if(roomselect.get(i).equals(room2.getText().toString())) {
+                                room1.setText("");
+                                name1.setText("");
+                                Toast.makeText(RoomUpdateActivity.this,"请选择不同宿舍",Toast.LENGTH_SHORT).show();
+                            }else {
+                                room1.setText(roomselect.get(i));
+                                Map<String, Object> temp = dormList.get(i);
+                                String dorm_id1 = temp.get("dorm_id").toString();
+                                dorm1 = Integer.parseInt(dorm_id1);
+                                name1.setText(memberselect.get(i1));
+                                //stu11 = memberselect.get(i1).toString();
+                                sc11 = sc.get(i1).toString();
+                                if (i1 == 0) {
+//                                stu12 = memberselect.get(1).toString();
+//                                stu13 = memberselect.get(2).toString();
+//                                stu14 = memberselect.get(3).toString();
+                                    sc12 = sc.get(1).toString();
+                                    sc13 = sc.get(2).toString();
+                                    sc14 = sc.get(3).toString();
+                                } else if (i1 == 1) {
+//                                stu12 = memberselect.get(0).toString();
+//                                stu13 = memberselect.get(2).toString();
+//                                stu14 = memberselect.get(3).toString();
+                                    sc12 = sc.get(0).toString();
+                                    sc13 = sc.get(2).toString();
+                                    sc14 = sc.get(3).toString();
+                                } else if (i1 == 2) {
+//                                stu12 = memberselect.get(0).toString();
+//                                stu13 = memberselect.get(1).toString();
+//                                stu14 = memberselect.get(3).toString();
+                                    sc12 = sc.get(0).toString();
+                                    sc13 = sc.get(1).toString();
+                                    sc14 = sc.get(3).toString();
+                                } else if (i1 == 3) {
+//                                stu12 = memberselect.get(0).toString();
+//                                stu13 = memberselect.get(1).toString();
+//                                stu14 = memberselect.get(2).toString();
+                                    sc12 = sc.get(0).toString();
+                                    sc13 = sc.get(1).toString();
+                                    sc14 = sc.get(2).toString();
+                                }
                             }
                         } else if(chosen==2) {
-                            room2.setText(roomselect.get(i));
-                            Map<String,Object> temp = dormList.get(i);
-                            String dorm_id2 = temp.get("dorm_id").toString();
-                            dorm2 = Integer.parseInt(dorm_id2);
-                            name2.setText(memberselect.get(i1));
-                            stu21 = memberselect.get(i1).toString();
-                            if(i1==0){
-                                stu22 = memberselect.get(1).toString();
-                                stu23 = memberselect.get(2).toString();
-                                stu24 = memberselect.get(3).toString();
-                            }
-                            else if (i1==1){
-                                stu22 = memberselect.get(0).toString();
-                                stu23 = memberselect.get(2).toString();
-                                stu24 = memberselect.get(3).toString();
-                            }
-                            else if (i1==2) {
-                                stu22 = memberselect.get(0).toString();
-                                stu23 = memberselect.get(1).toString();
-                                stu24 = memberselect.get(3).toString();
-                            }
-                            else if (i1==3) {
-                                stu22 = memberselect.get(0).toString();
-                                stu23 = memberselect.get(1).toString();
-                                stu24 = memberselect.get(2).toString();
+                            if(roomselect.get(i).equals(room1.getText().toString())){
+                                room2.setText("");
+                                name2.setText("");
+                                Toast.makeText(RoomUpdateActivity.this,"请选择不同宿舍",Toast.LENGTH_SHORT).show();
+                            }else {
+                                room2.setText(roomselect.get(i));
+                                Map<String, Object> temp = dormList.get(i);
+                                String dorm_id2 = temp.get("dorm_id").toString();
+                                dorm2 = Integer.parseInt(dorm_id2);
+                                name2.setText(memberselect.get(i1));
+                                // stu21 = memberselect.get(i1).toString();
+                                sc21 = sc.get(i1).toString();
+                                if (i1 == 0) {
+                                    //stu22 = memberselect.get(1).toString();
+                                    //stu23 = memberselect.get(2).toString();
+                                    //stu24 = memberselect.get(3).toString();
+                                    sc22 = sc.get(1).toString();
+                                    sc23 = sc.get(2).toString();
+                                    sc24 = sc.get(3).toString();
+                                } else if (i1 == 1) {
+                                    //stu22 = memberselect.get(0).toString();
+                                    //stu23 = memberselect.get(2).toString();
+                                    //stu24 = memberselect.get(3).toString();
+                                    sc22 = sc.get(0).toString();
+                                    sc23 = sc.get(2).toString();
+                                    sc24 = sc.get(3).toString();
+                                } else if (i1 == 2) {
+                                    // stu22 = memberselect.get(0).toString();
+                                    //  stu23 = memberselect.get(1).toString();
+                                    //  stu24 = memberselect.get(3).toString();
+                                    sc22 = sc.get(0).toString();
+                                    sc23 = sc.get(1).toString();
+                                    sc24 = sc.get(3).toString();
+                                } else if (i1 == 3) {
+                                    // stu22 = memberselect.get(0).toString();
+                                    // stu23 = memberselect.get(1).toString();
+                                    //  stu24 = memberselect.get(2).toString();
+                                    sc22 = sc.get(0).toString();
+                                    sc23 = sc.get(1).toString();
+                                    sc24 = sc.get(2).toString();
+                                }
                             }
                         }
                     }
@@ -172,6 +208,7 @@ public class RoomUpdateActivity extends AppCompatActivity{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // dataInit();
                 if (v == c1 || v == c2) {
                     InputMethodManager imm = (InputMethodManager)
                             getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -190,11 +227,11 @@ public class RoomUpdateActivity extends AppCompatActivity{
                     else onConfirm();
                 } else if (v == room1 || v == name1) {
                     System.out.println("room1click");
-                    System.out.println("测试"+"：\n" + roomselect.get(0).toString());
-                    pickerDialog.show();
+                   // System.out.println("测试"+"：\n" + roomselect.get(0).toString());
+                    if(roomselect.size()>0) pickerDialog.show();
                     chosen = 1;
                 } else if (v == room2 || v == name2) {
-                    pickerDialog.show();
+                    if(roomselect.size()>0) pickerDialog.show();
                     System.out.println("room2click");
                     chosen = 2;
                 }
@@ -230,6 +267,7 @@ public class RoomUpdateActivity extends AppCompatActivity{
                     case 1001:
                         dormList.clear();
                         roomselect.clear();
+
                         String ret = msg.obj.toString();
                         String[] lines = ret.split("\n");
                         for(int i=0;i<lines.length;i++){
@@ -238,10 +276,15 @@ public class RoomUpdateActivity extends AppCompatActivity{
                             temp.put("dorm_id", v[0]);
                             temp.put("building_id", v[1]);
                             temp.put("dorm_no", v[2]);
-                            temp.put("stu1", v[3]);
-                            temp.put("stu2", v[4]);
-                            temp.put("stu3", v[5]);
-                            temp.put("stu4", v[6]);
+                            temp.put("stu1_name", v[3]);
+                            temp.put("stu2_name", v[4]);
+                            temp.put("stu3_name", v[5]);
+                            temp.put("stu4_name", v[6]);
+                            temp.put("stu1", v[7]);
+                            temp.put("stu2", v[8]);
+                            temp.put("stu3", v[9]);
+                            temp.put("stu4", v[10]);
+
                             dormList.add(temp);
                             System.out.println("列表"+i+"：\n" + dormList.get(i).toString());
                             String d_no = temp.get("dorm_no").toString();
@@ -267,18 +310,27 @@ public class RoomUpdateActivity extends AppCompatActivity{
 
     private List<String> getMemberselect(String str) {
         memberselect.clear();
+        sc.clear();
         System.out.println("addmemselection");
         for(int i=0;i<roomselect.size();i++){
             if(str == roomselect.get(i).toString()){
                 Map<String, Object> temp = dormList.get(i);
-                String s1 = temp.get("stu1").toString();
-                String s2 = temp.get("stu2").toString();
-                String s3 = temp.get("stu3").toString();
-                String s4 = temp.get("stu4").toString();
+                String s1 = temp.get("stu1_name").toString();
+                String s2 = temp.get("stu2_name").toString();
+                String s3 = temp.get("stu3_name").toString();
+                String s4 = temp.get("stu4_name").toString();
+                String sc1 = temp.get("stu1").toString();
+                String sc2 = temp.get("stu2").toString();
+                String sc3 = temp.get("stu3").toString();
+                String sc4 = temp.get("stu4").toString();
                 memberselect.add(s1);
                 memberselect.add(s2);
                 memberselect.add(s3);
                 memberselect.add(s4);
+                sc.add(sc1);
+                sc.add(sc2);
+                sc.add(sc3);
+                sc.add(sc4);
 
                 System.out.println("addselection2");
             }
@@ -290,7 +342,7 @@ public class RoomUpdateActivity extends AppCompatActivity{
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                dbUtil.UpdateExchange(stu11,stu12,stu13,stu14,stu21,stu22,stu23,stu24,dorm1,dorm2);
+                dbUtil.UpdateExchange(sc11,sc12,sc13,sc14,sc21,sc22,sc23,sc24,dorm1,dorm2);
                 Message msg = new Message();
                 msg.what = 1002;
                 myHandler.sendMessage(msg);

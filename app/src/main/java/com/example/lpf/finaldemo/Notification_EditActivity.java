@@ -30,7 +30,7 @@ import java.util.Date;
 
 public class Notification_EditActivity extends AppCompatActivity {
     private String account;
-    private int notify_id = 0;
+    private int notify_id;
     private Button confirm;
     private EditText content;
     private int obj_id;
@@ -100,7 +100,6 @@ public class Notification_EditActivity extends AppCompatActivity {
                                 .setTitle("正在发布...")
                                 .show(Notification_EditActivity.this);
                     uploadInfo();
-                    notify_id++;
                     }
                 }))
                 .show(Notification_EditActivity.this);
@@ -109,7 +108,9 @@ public class Notification_EditActivity extends AppCompatActivity {
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                dbUtil.notification(content.getText().toString(),notify_id,obj_id);
+                System.out.println("发布...");
+                dbUtil.notification(content.getText().toString(),obj_id);
+                System.out.println("发布sucess");
                 Message msg = new Message();
                 msg.what = 1002;
                 mHandler.sendMessage(msg);

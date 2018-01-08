@@ -79,7 +79,7 @@
                 android:id="@+id/name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="学生账号："
+                android:text="学生姓名："
                 />
             <EditText
                 android:id="@+id/name11"
@@ -166,7 +166,7 @@
                 android:id="@+id/name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="学生账号："
+                android:text="学生姓名："
                 />
             <EditText
                 android:id="@+id/name22"
