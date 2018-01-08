@@ -67,40 +67,7 @@ public class DBUtil
 //    }
 
     // 根据管理员账号获取所管理楼栋的宿舍
-    public static String QueryAllDorm(String a_account)
-    {
-        String result = "";
-        try
-        {
-            Connection conn = getSQLConnection();
-            CallableStatement stmt = conn.prepareCall("{call PROC_SELECT_STUDENTS(?)}");
-            stmt.setString(1, a_account);
-            stmt.execute();
-            ResultSet rs = stmt.getResultSet();
-            while (rs.next()) {
-                String dorm_id = rs.getString("D_id");
-                String building_id = rs.getString("D_buildingId");
-                String dorm_no = rs.getString("D_no");
-                String stu1 = rs.getString("D_stu1");
-                String stu2 = rs.getString("D_stu2");
-                String stu3 = rs.getString("D_stu3");
-                String stu4 = rs.getString("D_stu4");
-                result += dorm_id+","+building_id+","+dorm_no+","+stu1+","+stu2+","+stu3+","+stu4+"\n";
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
-            System.out.println("查询成功");
-            System.out.println("-----------------------");
-            System.out.println("查询结果：\n"+result);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-            System.out.println("查询失败");
-            System.out.println("-----------------------");
-        }
-        return result;
-    }
+
 
     public static ArrayList<String> QueryStu(String account) {
         ArrayList<String> result = new ArrayList<>();
@@ -258,7 +225,7 @@ public class DBUtil
 
     public static void repair(String title,String content,int id){
         try {
-            String sql = String.format("INSERT INTO WaterOrder (R_detail,R_starttime,R_ifrepair,W_dormId)" +
+            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
                     title+": "+content,"0",Integer.toString(id));  ;
             Connection conn = getSQLConnection();
