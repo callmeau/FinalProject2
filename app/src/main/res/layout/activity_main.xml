@@ -42,4 +42,22 @@
         android:layout_marginTop="250dp"
         android:text="报修"/>
 
+    <Button
+        android:id="@+id/exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/repair"
+        android:layout_marginTop="48dp"
+        android:text="调整宿舍" />
+
+    <Button
+        android:id="@+id/notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/exchange"
+        android:layout_below="@+id/exchange"
+        android:layout_marginTop="26dp"
+        android:text="发布通知" />
+
 </RelativeLayout>

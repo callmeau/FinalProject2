@@ -41,6 +41,97 @@ public class DBUtil
     }
 
 
+    //调用存储过程更新dormlist调整宿舍
+    public static void UpdateExchange(String stu1,String stu2,String stu3,String stu4,String stu5,String stu6,String stu7,String stu8,int room1,int room2){
+        try{
+            Connection conn = getSQLConnection();
+            CallableStatement stmt = conn.prepareCall("{call PROC_EXECHANGE_DORM(?,?,?,?,?,?,?,?,?,?)}");
+            stmt.setString(1,stu1);
+            stmt.setString(2,stu2);
+            stmt.setString(3,stu3);
+            stmt.setString(4,stu4);
+            stmt.setString(5,stu5);
+            stmt.setString(6,stu6);
+            stmt.setString(7,stu7);
+            stmt.setString(8,stu8);
+            stmt.setInt(9,room1);
+            stmt.setInt(10,room2);
+            stmt.execute();
+            stmt.close();
+            conn.close();
+            System.out.println("修改成功");
+            System.out.println("-----------------------");
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("change：");
+            System.out.println("修改失败");
+            System.out.println("-----------------------");
+        }
+    }
+
+    public static String QueryName(String s_account){
+        String sname="";
+        try {
+            Connection connection = getSQLConnection();
+            CallableStatement statement = connection.prepareCall("{call PROC_STUDENTS_NAME(?)}");
+            statement.setString(1,s_account);
+            statement.execute();
+            ResultSet rs = statement.getResultSet();
+            while (rs.next()) {
+                sname = rs.getString("S_name");
+            }
+            statement.close();
+            connection.close();
+            System.out.println("查询成功");
+            System.out.println("-----------------------");
+            System.out.println("查询结果：\n"+sname);
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("getname：");
+            System.out.println("查询失败");
+        }
+        return sname;
+    }
+  
+  /*
+    // 根据管理员账号获取所管理楼栋的宿舍
+    public static String QueryAllDorm2(String a_account)
+    {
+        String result = "";
+        try
+        {
+            Connection conn = getSQLConnection();
+            CallableStatement stmt = conn.prepareCall("{call PROC_SELECT_STUDENTS(?)}");
+            stmt.setString(1, a_account);
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
+            while (rs.next()) {
+                String dorm_id = rs.getString("D_id");
+                String building_id = rs.getString("D_buildingId");
+                String dorm_no = rs.getString("D_no");
+                String stu1 = rs.getString("D_stu1");
+                String stu2 = rs.getString("D_stu2");
+                String stu3 = rs.getString("D_stu3");
+                String stu4 = rs.getString("D_stu4");
+                result += dorm_id+","+building_id+","+dorm_no+","+stu1+","+stu2+","+stu3+","+stu4+"\n";
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+            System.out.println("查询成功");
+            System.out.println("-----------------------");
+            System.out.println("查询结果：\n"+result);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return result;
+    }
+    */
+
+
     // 根据学生账号获取学生信息
     public static ArrayList<String> QueryStu(String account) {
         ArrayList<String> result = new ArrayList<>();
@@ -74,8 +165,8 @@ public class DBUtil
                  sleeptime = rs.getString("S_sleeptime");
                  waketime = rs.getString("S_waketime");
                  hobby1 = rs.getString("S_hobby1");
-                 hobby2 = rs.getString("S_hobby2");;
-                 hobby3 = rs.getString("S_hobby3");;
+                 hobby2 = rs.getString("S_hobby2");
+                 hobby3 = rs.getString("S_hobby3");
                  plan = rs.getString("S_plan");
                  d_id = rs.getString("S_dormId");
                 result.add(name);
@@ -121,6 +212,7 @@ public class DBUtil
         }
         return result;
     }
+
 
     // 根据管理员账号获取所管理楼栋的宿舍
     public static String QueryAllDorm(String a_account)
@@ -222,7 +314,8 @@ public class DBUtil
                     }
                 }
 
-                result += dorm_id+","+building_id+","+dorm_no+","+stu1_name+","+stu2_name+","+stu3_name+","+stu4_name+"\n";
+                result += dorm_id+","+building_id+","+dorm_no+","+stu1_name+","+stu2_name+","+stu3_name+","+stu4_name
+                  +","+stu1+","+stu2+","+stu3+","+stu4+"\n";
             }
             rs.close();
             stmt.close();
@@ -573,11 +666,13 @@ public class DBUtil
         }
     }
 
+
+
     public static void Order(String num,int id){
         try {
             String sql = String.format("INSERT INTO WaterOrder (W_num,W_date,W_iffinish,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    num,"0",Integer.toString(id));  ;
+                    num,"0",Integer.toString(id));
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -595,7 +690,7 @@ public class DBUtil
         try {
             String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    title+": "+content,"0",Integer.toString(id));  ;
+                    title+": "+content,"0",Integer.toString(id));
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -609,6 +704,28 @@ public class DBUtil
         }
     }
 
+    public static void notification(String content,int no_id,int bu_id){
+        try {
+            String s = "SET IDENTITY_INSERT Notification ON";
+            String sq = "SET IDENTITY_INSERT Notification OFF";
+            String sql = String.format("INSERT INTO Notification (N_id,N_date,N_detail,N_obj)" +
+                                                "Values('%s',GETDATE(),'%s','%s')",
+                    Integer.toString(no_id),content,Integer.toString(bu_id));
+            Connection connection = getSQLConnection();
+            Statement stmt = connection.createStatement();
+            stmt.execute(s);
+            stmt.executeUpdate(sql);
+            stmt.execute(sq);
+            stmt.close();
+            connection.close();
+            Connection conn = getSQLConnection();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("e");
+            System.out.println("发布失败");
+            System.out.println("-----------------------");
+        }
+    }
     public static void uploadImage(byte[] img,String account){
         try {
             String sql = "UPDATE student SET S_profile = ?  where S_account = ?;";
