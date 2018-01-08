@@ -90,7 +90,7 @@ public class edit_informationActivity extends AppCompatActivity {
     private ArrayList<String> time1;
     private ArrayList<String> time2;
     private ArrayList<String> op;
-    private  ArrayList<String> stuInfo;
+    private ArrayList<String> stuInfo;
     private int chosen;
     private static EditText hobby1;
     private static EditText hobby2;
@@ -373,7 +373,7 @@ public class edit_informationActivity extends AppCompatActivity {
     }
 
     private void Addselection2() {
-        for (int i = 1; i < 20; i++) {
+        for (int i = 1; i <=20; i++) {
             selection2.add(Integer.toString(i) + "班");
         }
         data.add("数学学院");
