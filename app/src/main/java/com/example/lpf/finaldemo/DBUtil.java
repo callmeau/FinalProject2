@@ -465,7 +465,7 @@ public class DBUtil
                 }
 
                 result += building_name+","+dorm_no+","+stu1_name+","+stu1_no+","+stu1_school+","+stu2_name+","+stu2_no+","+stu2_school+
-                        ","+stu3_name+","+stu3_no+","+stu3_school+","+stu4_name+","+stu4_no+","+stu4_school+"\n";
+                        ","+stu3_name+","+stu3_no+","+stu3_school+","+stu4_name+","+stu4_no+","+stu4_school+","+stu1+","+stu2+","+stu3+","+stu4+"\n";
             }
             rs.close();
             stmt.close();
@@ -759,6 +759,8 @@ public class DBUtil
             rs.close();
             pStatement.close();
             conn.close();
+            System.out.println("加载成功");
+            System.out.println("-----------------------");
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println(e);
