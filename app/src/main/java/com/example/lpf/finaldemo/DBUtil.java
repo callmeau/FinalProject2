@@ -704,21 +704,21 @@ public class DBUtil
         }
     }
 
-    public static void notification(String content,int no_id,int bu_id){
+    public static void notification(String content,int bu_id){
         try {
-            String s = "SET IDENTITY_INSERT Notification ON";
-            String sq = "SET IDENTITY_INSERT Notification OFF";
-            String sql = String.format("INSERT INTO Notification (N_id,N_date,N_detail,N_obj)" +
-                                                "Values('%s',GETDATE(),'%s','%s')",
-                    Integer.toString(no_id),content,Integer.toString(bu_id));
+            //String s = "SET IDENTITY_INSERT Notification ON";
+            //String sq = "SET IDENTITY_INSERT Notification OFF";
+            String sql = String.format("INSERT INTO Notification (N_date,N_detail,N_obj)" +
+                                                "Values(GETDATE(),'%s','%s')",
+                    content,Integer.toString(bu_id));
             Connection connection = getSQLConnection();
             Statement stmt = connection.createStatement();
-            stmt.execute(s);
+            //stmt.execute(s);
             stmt.executeUpdate(sql);
-            stmt.execute(sq);
+           // stmt.execute(sq);
             stmt.close();
             connection.close();
-            Connection conn = getSQLConnection();
+           // Connection conn = getSQLConnection();
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println("e");
