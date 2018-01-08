@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="格致园三号"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -44,8 +44,8 @@
                 android:id="@+id/dormitory_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="24dp"
                 android:text="B703"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -122,12 +122,10 @@
             android:layout_below="@+id/textTitle"
             android:background="@color/lightGrey"
             android:id="@+id/line">
-
         </View>
-
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="520dp"
             android:layout_alignEnd="@+id/water_list"
             android:layout_alignStart="@+id/repair_list"
             android:layout_below="@+id/line"
@@ -135,8 +133,6 @@
             android:layout_marginTop="4dp"
             android:id="@+id/stuList">
         </ListView>
-
     </RelativeLayout>
 </LinearLayout>
-
 </ScrollView>
