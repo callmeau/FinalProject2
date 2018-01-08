@@ -41,7 +41,7 @@ public class DBUtil
     }
 
 
-    // 根据管理员账号获取所管理楼栋的宿舍
+    // 根据学生账号获取学生信息
     public static ArrayList<String> QueryStu(String account) {
         ArrayList<String> result = new ArrayList<>();
         String d_id = "";
@@ -593,7 +593,7 @@ public class DBUtil
 
     public static void repair(String title,String content,int id){
         try {
-            String sql = String.format("INSERT INTO WaterOrder (R_detail,R_starttime,R_ifrepair,W_dormId)" +
+            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
                     title+": "+content,"0",Integer.toString(id));  ;
             Connection conn = getSQLConnection();
