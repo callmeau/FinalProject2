@@ -7,7 +7,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- for location only -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
     <application
+        android:name="com.example.lpf.finaldemo.YourApp"
         tools:replace="android:icon"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,8 +34,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="YUNBA_APPKEY" android:value="5a4e4beb5a3870cf7b5c3e5e" />
+        <service android:name="io.yunba.android.core.YunBaService" />
+        <receiver android:name="io.yunba.android.core.YunBaReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <!-- 自定义 Receiver 接受 Publish 消息, Package Name 为当前应用程序的包名 -->
+        <receiver android:name="com.example.lpf.finaldemo.MyReceiver" >
+            <intent-filter>
+                <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
+                <action android:name="io.yunba.android.PRESENCE_RECEIVED_ACTION" />
+                <category android:name="com.example.lpf.finaldemo" />
+            </intent-filter>
+        </receiver>
         <provider
-            android:authorities="com.example.cameraalbumtest.filepovider"
+            android:authorities="com.example.cameraalbumtest.filepovider-2"
             android:name="android.support.v4.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -40,5 +76,6 @@
         <activity android:name=".RoomUpdateActivity"></activity>
         <activity android:name=".Notification_EditActivity"></activity>
     </application>
+
 
 </manifest>
