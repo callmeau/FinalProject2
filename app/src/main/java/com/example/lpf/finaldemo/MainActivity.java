@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         btnList.setOnClickListener(getClickEvent());
         order.setOnClickListener(getClickEvent());
         repair.setOnClickListener(getClickEvent());
+        exchange.setOnClickListener(getClickEvent());
+        notify.setOnClickListener(getClickEvent());
+
         final Button login = (Button) findViewById(R.id.login);
   
         login.setOnClickListener(new View.OnClickListener() {
@@ -92,9 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-}
-        exchange.setOnClickListener(getClickEvent());
-        notify.setOnClickListener(getClickEvent());
     }
 
     private View.OnClickListener getClickEvent(){
