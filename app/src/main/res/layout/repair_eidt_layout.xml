@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="@mipmap/book">
     <android.support.v7.widget.CardView
+        android:id="@+id/repaircardview2"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="70dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
@@ -49,17 +49,81 @@
 
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
+        android:id="@+id/repaircardview1"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         app:cardBackgroundColor="@color/cardBg"
         >
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:text="主题： "
+                />
+            <EditText
+                android:id="@+id/titlecontent"
+                android:layout_width="260dp"
+                android:layout_height="40dp"
+                android:background="@drawable/inputstyle"
+                android:maxLines="1"
+                android:hint="请输入报修详情"
+                android:maxLength="10"
+                android:padding="1dp"
+                android:textSize="15sp" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/detail"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:text="详情： "
+                />
+            <EditText
+                android:id="@+id/detailcontent"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:maxLength="100"
+                android:layout_marginTop="30dp"
+                android:inputType="textMultiLine"
+                android:background="@drawable/inputstyle"
+                android:gravity="start|top"
+                android:hint="请输入报修详情"
+                android:minLines="10"
+                 >
+            </EditText>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
+    <Button
+        android:id="@+id/buttonconfirm"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_style"
+        android:layout_height="wrap_content"
+        android:text="保存修改"
+
+        android:layout_margin="8dp"
+
+        />
 </LinearLayout>
