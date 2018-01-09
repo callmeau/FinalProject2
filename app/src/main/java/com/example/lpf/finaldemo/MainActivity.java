@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private View btnEdit;
     private View order;
     private View repair;
+    private View exchange;
+    private View notify;
     private static TextView tvTestResult;
     private final MyHandler mHandler = new MyHandler(this);
 
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         btnList=findViewById(R.id.btnList);
         order = findViewById(R.id.order);
         repair = findViewById(R.id.repair);
+
+        exchange = findViewById(R.id.exchange);
+        notify = findViewById(R.id.notify);
+
         btnEdit=findViewById(R.id.btnInputInfo);
         tvTestResult = (TextView)findViewById(R.id.tvTestResult);
         btnTest.setOnClickListener(getClickEvent());
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         order.setOnClickListener(getClickEvent());
         repair.setOnClickListener(getClickEvent());
         final Button login = (Button) findViewById(R.id.login);
+  
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 }
+        exchange.setOnClickListener(getClickEvent());
+        notify.setOnClickListener(getClickEvent());
+    }
 
     private View.OnClickListener getClickEvent(){
         return new View.OnClickListener()
@@ -117,7 +127,17 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("dorm_id",dorm_id);
                     startActivity(intent);
                 }
-
+                else if(v==exchange){
+                    Intent intent = new Intent(MainActivity.this,RoomUpdateActivity.class);
+                    intent.putExtra("a_account",a_account);
+                    startActivity(intent);
+                }
+                else if(v==notify){
+                    Intent intent = new Intent(MainActivity.this,Notification_EditActivity.class);
+                    intent.putExtra("a_account",a_account);
+                    intent.putExtra("building_id",building_id);
+                    startActivity(intent);
+                }
             }
         };
     }
