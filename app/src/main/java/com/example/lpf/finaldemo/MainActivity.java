@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -16,6 +18,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String a_account = "FJR";
 
+    private static MyListView w_listView;//订水列表
+    private List<item> water_list = new ArrayList<item>();//订水list数据
+    private ItemAdapter water_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
         btnList=findViewById(R.id.btnList);
         order = findViewById(R.id.order);
         repair = findViewById(R.id.repair);
+
         exchange = findViewById(R.id.exchange);
         notify = findViewById(R.id.notify);
+
         btnEdit=findViewById(R.id.btnInputInfo);
         tvTestResult = (TextView)findViewById(R.id.tvTestResult);
         btnTest.setOnClickListener(getClickEvent());
@@ -54,6 +63,36 @@ public class MainActivity extends AppCompatActivity {
         btnList.setOnClickListener(getClickEvent());
         order.setOnClickListener(getClickEvent());
         repair.setOnClickListener(getClickEvent());
+        final Button login = (Button) findViewById(R.id.login);
+  
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Log_in_activity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button stu = (Button) findViewById(R.id.btn_stu);
+        stu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, student_main_page.class);
+                intent.putExtra("account","stu1");
+                startActivity(intent);
+            }
+        });
+
+        final Button admin = (Button) findViewById(R.id.btn_admin);
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, admin_main_page.class);
+                intent.putExtra("account","FJR");
+                startActivity(intent);
+            }
+        });
+}
         exchange.setOnClickListener(getClickEvent());
         notify.setOnClickListener(getClickEvent());
     }
@@ -99,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("building_id",building_id);
                     startActivity(intent);
                 }
-
             }
         };
     }

@@ -1,8 +1,10 @@
 package com.example.lpf.finaldemo;
 
 import android.content.DialogInterface;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -85,6 +87,7 @@ public class DormInfoActivity extends AppCompatActivity {
         wAdapter = new LvAdapter(waterDatas);
         wListView.setAdapter(wAdapter);
         sAdapter = new SimpleAdapter(this, stuList, R.layout.student_item_layout, mStrs, ids);
+
         sAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object data,
@@ -97,6 +100,7 @@ public class DormInfoActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         sListView.setAdapter(sAdapter);
     }
 
@@ -106,6 +110,7 @@ public class DormInfoActivity extends AppCompatActivity {
             public void run() {
                 String ret = DBUtil.QueryDormInfo(dorm_id);
                 Message msg = new Message();
+
                 String[] v = ret.split(",");
                 String stu1_id = v[14];
                 String stu2_id = v[15];
@@ -218,7 +223,6 @@ public class DormInfoActivity extends AppCompatActivity {
                         Toast.makeText(DormInfoActivity.this, "没有确认权限", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
             @Override
             public void onClick(ISlide iSlideView, View view, final int position) {

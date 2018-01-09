@@ -79,7 +79,7 @@
         >
 
         <include
-            android:id="@+id/repair_list"
+            android:id="@+id/notification_list"
             layout="@layout/repair_list_layout"
             android:layout_width="200dp"
             android:layout_height="380dp"
@@ -93,20 +93,20 @@
             layout="@layout/water_list_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_group"
-            android:layout_alignBottom="@+id/repair_list"
+            android:layout_above="@+id/button_group2"
+            android:layout_alignBottom="@+id/notification_list"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toEndOf="@+id/repair_list" />
+            android:layout_toEndOf="@+id/notification_list" />
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
-            android:layout_below="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
+            android:layout_below="@+id/notification_list"
             android:layout_marginTop="5dp"
             android:text="舍员"
             android:textSize="18sp" />
@@ -117,7 +117,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
             android:layout_below="@+id/textTitle"
             android:background="@color/lightGrey"
             android:id="@+id/line">
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="520dp"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
             android:layout_below="@+id/line"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"

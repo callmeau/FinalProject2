@@ -23,7 +23,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="查看学生" />
+            android:text="查看学生"
+            android:textSize="12sp" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -37,7 +38,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="发布通知" />
+            android:text="发布通知"
+            android:textSize="12sp" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -51,6 +53,22 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="调整宿舍" />
+            android:text="调整宿舍"
+            android:textSize="12sp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lightGrey"
+            android:layout_margin="8dp">
+        </View>
+
+        <Button
+            android:id="@+id/btn_allocate"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="分配宿舍"
+            android:textSize="12sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
