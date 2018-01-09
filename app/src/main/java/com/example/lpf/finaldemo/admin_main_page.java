@@ -19,6 +19,7 @@ public class admin_main_page extends AppCompatActivity {
     private String account="";
     private String Admin_name="";
     private String buildingName="";
+    private String buildingId="";
     private List<item> repair_list = new ArrayList<item>();//报修list数据
     private ItemAdapter repair_adapter;
     private List<item> water_list = new ArrayList<item>();//订水list数据
@@ -86,6 +87,7 @@ public class admin_main_page extends AppCompatActivity {
                 Map<String,String> map = DBUtil.QuerryAdmin(account);
                 Admin_name = map.get("AdminName");
                 buildingName = map.get("BuildingName");
+                buildingId = map.get("BuildingId");
                 Message msg = new Message();
                 msg.what = 0;
                 handler.sendMessage(msg);
@@ -156,15 +158,16 @@ public class admin_main_page extends AppCompatActivity {
         release_notifycation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(admin_main_page.this,DormListActivity.class);
+                Intent intent =new Intent(admin_main_page.this,Notification_EditActivity.class);
                 intent.putExtra("a_account",account);
+                intent.putExtra("building_id",buildingId);
                 startActivity(intent);
             }
         });
         adjustDormitory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(admin_main_page.this,DormListActivity.class);
+                Intent intent =new Intent(admin_main_page.this,RoomUpdateActivity.class);
                 intent.putExtra("a_account",account);
                 startActivity(intent);
             }

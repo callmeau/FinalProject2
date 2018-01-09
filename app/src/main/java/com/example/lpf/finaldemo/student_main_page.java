@@ -89,11 +89,17 @@ public class student_main_page extends AppCompatActivity {
         account = intent.getStringExtra("account");
         initial();
         loadInfo();
-        //update_notification();
-        //update_orderWater();
+        //w_listView.setAdapter(water_adapter);
+        //n_listView.setAdapter(notification_adapter);
+        //w_listView.setAdapter(water_adapter);
         setOnClickListener();
-        n_listView.setAdapter(notification_adapter);
-        w_listView.setAdapter(water_adapter);
+    }
+
+    @Override
+    protected void onResume( ){
+        super.onResume();
+        System.out.println("onResume");
+        loadInfo();
     }
 
     private void initial()
@@ -111,11 +117,11 @@ public class student_main_page extends AppCompatActivity {
 
         n_listView =(MyListView) findViewById(R.id.NotificationList);
         notification_adapter = new ItemAdapter(notification_list,student_main_page.this);
-        //n_listView.setAdapter(notification_adapter);
+        n_listView.setAdapter(notification_adapter);
 
         w_listView = (MyListView) findViewById(R.id.WaterList);
         water_adapter = new ItemAdapter(water_list,student_main_page.this);
-        //w_listView.setAdapter(water_adapter);
+        w_listView.setAdapter(water_adapter);
     }
 
     private void loadInfo()//加载已经存在的数据
@@ -195,12 +201,14 @@ public class student_main_page extends AppCompatActivity {
         btn_update_n.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("通知表更新");
                 update_notification();
             }
         });
         btn_update_w.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("订水表更新");
                 update_orderWater();
             }
         });

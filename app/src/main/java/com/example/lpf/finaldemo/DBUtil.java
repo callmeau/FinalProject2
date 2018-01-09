@@ -784,7 +784,7 @@ public class DBUtil
         return ret;
     }
 
-    //根据管理员account查询管理员名字和所管理的楼名
+    //根据管理员account查询管理员名字和所管理的楼名,以及宿舍楼id
     public static Map<String,String> QuerryAdmin(String account)
     {
         Map<String,String> map = new HashMap<String , String>();
@@ -816,6 +816,20 @@ public class DBUtil
             rs2.close();
             stmt2.close();
             conn2.close();
+
+            String sql3 = "select B_id from Building where B_admin = '"+account+"'";
+            Connection conn3 = getSQLConnection();
+            Statement stmt3 = conn3.createStatement();
+            ResultSet rs3 = stmt3.executeQuery(sql3);
+            while(rs3.next())
+            {
+                String buildingId = rs3.getString("B_id");
+                map.put("Buildingid",buildingId);
+                System.out.println(buildingId);
+            }
+            rs3.close();
+            stmt3.close();
+            conn3.close();
 
         }catch(SQLException e)
         {
