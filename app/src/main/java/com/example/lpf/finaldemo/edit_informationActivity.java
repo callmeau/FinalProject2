@@ -266,6 +266,15 @@ public class edit_informationActivity extends AppCompatActivity {
                     picker3.show();
                     chosen = 3;
                 }
+                else if(v==sleeptime){
+                    picker4.show();;
+                }
+                else if (v==waketime){
+                    picker5.show();
+                }
+                else if (v==plan){
+                    picker6.show();
+                }
                 else if (v==profile){
                     final String[] items=new String[]{"拍摄","从相册中选择"};
 
