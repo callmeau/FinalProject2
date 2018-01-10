@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class repair_edit extends AppCompatActivity {
     private String account;
-    private int id;
+    private String id;
     private Button confirm;
     private EditText title;
     private EditText content;
@@ -47,7 +47,7 @@ public class repair_edit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.repair_eidt_layout);
         account=getIntent().getStringExtra("stu_account");//学生账号
-        id=getIntent().getIntExtra("dorm_id",0);//宿舍id
+        id=getIntent().getStringExtra("dorm_id");//宿舍id
         title = (EditText)findViewById(R.id.titlecontent);
         content =(EditText)findViewById(R.id.detailcontent);
         confirm = (Button)findViewById(R.id.buttonconfirm) ;

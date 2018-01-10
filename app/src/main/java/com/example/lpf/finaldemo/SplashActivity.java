@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Handler;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     private static final long SPLASH_DELAY_MILLIS=2000;
 
     @Override
@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         },SPLASH_DELAY_MILLIS);
     }
     private void goHome(){
-        Intent intent = new Intent(MainActivity.this,Log_in_activity.class);
-        MainActivity.this.startActivity(intent);
-        MainActivity.this.finish();
+        Intent intent = new Intent(SplashActivity.this,Log_in_activity.class);
+        SplashActivity.this.startActivity(intent);
+        SplashActivity.this.finish();
     }
 }

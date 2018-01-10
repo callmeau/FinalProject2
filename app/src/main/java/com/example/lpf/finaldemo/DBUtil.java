@@ -648,11 +648,11 @@ public class DBUtil
 
 
 
-    public static void Order(String num,int id){
+    public static void Order(String num,String id){
         try {
             String sql = String.format("INSERT INTO WaterOrder (W_num,W_date,W_iffinish,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    num,"0",Integer.toString(id));
+                    num,"0",id);
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -662,15 +662,15 @@ public class DBUtil
             e.printStackTrace();
             System.out.println("e");
             System.out.println("上传失败");
-            System.out.println("-----------------------");
+            System.out.println(id);
         }
     }
 
-    public static void repair(String title,String content,int id){
+    public static void repair(String title,String content,String id){
         try {
-            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,W_dormId)" +
+            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,R_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    title+": "+content,"0",Integer.toString(id));
+                    title+": "+content,"0",id);
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -678,7 +678,7 @@ public class DBUtil
             conn.close();
         }catch (SQLException e){
             e.printStackTrace();
-            System.out.println("e");
+            System.out.println(e);
             System.out.println("上传失败");
             System.out.println("-----------------------");
         }
