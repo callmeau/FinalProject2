@@ -87,7 +87,7 @@ public class admin_main_page extends AppCompatActivity {
                 Map<String,String> map = DBUtil.QuerryAdmin(account);
                 Admin_name = map.get("AdminName");
                 buildingName = map.get("BuildingName");
-                buildingId = map.get("BuildingId");
+                buildingId = map.get("Buildingid");
                 Message msg = new Message();
                 msg.what = 0;
                 handler.sendMessage(msg);
