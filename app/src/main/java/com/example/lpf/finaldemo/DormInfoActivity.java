@@ -115,7 +115,7 @@ public class DormInfoActivity extends AppCompatActivity {
                 String stu1_id = v[14];
                 String stu2_id = v[15];
                 String stu3_id = v[16];
-                String stu4_id = v[17];
+                String stu4_id = v[17].trim();
                 ArrayList<byte[]> pic = new ArrayList<>();
                 byte []pic1 = DBUtil.loadImage(stu1_id);//图片
                 pic.add(pic1);

@@ -518,7 +518,7 @@ public class DBUtil
             while (rs.next()) {
                 String W_id = rs.getString("W_id");
                 String W_date = rs.getString("W_date");
-                String W_num = rs.getString("W_num");
+                String W_num = "数量:"+rs.getString("W_num");
                 String W_check = rs.getString("W_iffinish");
                 if (W_check == null || W_check.equals("")){
                     W_check = "0";
@@ -847,7 +847,7 @@ public class DBUtil
         List<item> list = new ArrayList<item>();
         try
         {
-            String sql = "select * from repair_query where A_account='"+account+"'";// and R_ifrepair = '0'";
+            String sql = "select * from repair_query where A_account='"+account+"'";//and R_ifrepair = '0'";
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -884,18 +884,18 @@ public class DBUtil
         List<item> list = new ArrayList<item>();
         try
         {
-            String sql = "select * from order_query where A_account='"+account+"' and W_iffinish = '1'";
+            String sql = "select * from order_query where A_account='"+account+"'";// and W_iffinish = '0'";
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
             {
                 String dorm_name = rs.getString("D_no");
-                //String date = rs.getString("W_date");
+                String date = rs.getString("W_date").split(" ")[0];
                 String num = rs.getString("W_num");
-                String details = "订水"+num+"桶";
+                String details = "数量："+num+"桶";
                 System.out.println(details);
-                item i = new item(dorm_name,"",details);
+                item i = new item(dorm_name,date,details);
                 list.add(i);
             }
             rs.close();
@@ -955,10 +955,10 @@ public class DBUtil
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
             {
-                String date = rs.getString("W_date");
-                String detail = "订水"+rs.getString("W_num")+"桶";
+                String date = rs.getString("W_date").split(" ")[0];;
+                String detail = "数量："+rs.getString("W_num")+"桶";
                 System.out.println(detail);
-                item i = new item("","",detail);
+                item i = new item("订水",date,detail);
                 list.add(i);
             }
             rs.close();
