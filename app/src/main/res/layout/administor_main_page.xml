@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/book"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/lightGrey">
-
-    </View>
-
-    <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="4dp"
@@ -43,18 +29,18 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:text="格致园三号"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/dormitory_name"
+                android:id="@+id/admistor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginLeft="24dp"
-                android:text="B703"
+                android:layout_marginLeft="16dp"
+                android:text="管理员：XXX"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent" />
@@ -70,23 +56,32 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.521"
-                app:srcCompat="@mipmap/my_dormitory" />
+                app:srcCompat="@mipmap/administor" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/lightGrey">
+
+    </View>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        >
+        android:layout_weight="5">
 
         <include
             android:id="@+id/notification_list"
             layout="@layout/repair_list_layout"
-            android:layout_width="200dp"
-            android:layout_height="380dp"
+            android:layout_width="210dp"
+            android:layout_height="390dp"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
+            android:layout_above="@+id/button_group"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
 
@@ -95,45 +90,20 @@
             layout="@layout/water_list_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_group2"
-            android:layout_alignBottom="@+id/notification_list"
+            android:layout_above="@+id/button_group"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_toEndOf="@+id/notification_list" />
 
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/notification_list"
-            android:layout_below="@+id/notification_list"
-            android:layout_marginTop="5dp"
-            android:text="舍员"
-            android:textSize="18sp" />
+        <include
+            android:id="@+id/button_group"
+            layout="@layout/button_group_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/notification_list"
-            android:layout_below="@+id/textTitle"
-            android:background="@color/lightGrey"
-            android:id="@+id/line">
-        </View>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="520dp"
-            android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/notification_list"
-            android:layout_below="@+id/line"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:id="@+id/stuList">
-        </ListView>
     </RelativeLayout>
+
 </LinearLayout>
-</ScrollView>

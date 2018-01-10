@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     package="com.example.lpf.finaldemo"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -29,10 +30,11 @@
         android:name="com.example.lpf.finaldemo.YourApp"
         tools:replace="android:icon"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_1"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
 
         <meta-data android:name="YUNBA_APPKEY" android:value="5a4e4beb5a3870cf7b5c3e5e" />
@@ -54,12 +56,14 @@
         <provider
             android:authorities="com.example.cameraalbumtest.filepovider-2"
             android:name="android.support.v4.content.FileProvider"
+
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,11 +72,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DormListActivity"></activity>
-        <activity android:name=".edit_informationActivity"></activity>
-        <activity android:name=".Order_editActivity"></activity>
-        <activity android:name=".repair_edit"></activity>     
-        <activity android:name=".DormInfoActivity"></activity>
+        <activity android:name=".DormListActivity" />
+        <activity android:name=".edit_informationActivity" />
+        <activity android:name=".Order_editActivity" />
+        <activity android:name=".repair_edit" />
+        <activity android:name=".DormInfoActivity" />
+        <activity android:name=".Log_in_activity" />
+        <activity android:name=".student_main_page" />
+        <activity android:name=".admin_main_page"></activity>
+        <activity android:name=".RoomUpdateActivity"></activity>
+        <activity android:name=".Notification_EditActivity"></activity>
 
     </application>
 

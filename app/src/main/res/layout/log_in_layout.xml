@@ -7,27 +7,38 @@
     tools:context="com.example.lpf.finaldemo.MainActivity"
     android:background="@mipmap/book">
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="33dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logo_1" />
+
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="宿舍管家"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.193" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="78dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Title">
 
         <EditText
+            android:id="@+id/account_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入登录账号"
@@ -45,11 +57,9 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/password"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_height="59dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login">
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
@@ -65,26 +75,39 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <RadioButton
-        android:id="@+id/radioButton_student"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="学生"
-        android:layout_marginLeft="120dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        android:layout_marginBottom="192dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <RadioButton
-        android:id="@+id/radioButton_administor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="120dp"
-        android:layout_marginRight="120dp"
-        android:text="宿管"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioButton_student" />
+        <RadioButton
+            android:id="@+id/radioButton_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="0dp"
+            android:text="学生"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <RadioButton
+            android:id="@+id/radioButton_administor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="120dp"
+            android:layout_marginRight="120dp"
+            android:text="宿管"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/radioButton_student" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/btn_Login"
@@ -101,6 +124,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

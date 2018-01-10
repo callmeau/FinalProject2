@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/book">
     <android.support.v7.widget.CardView
-        android:id="@+id/repaircardview2"
+        android:id="@+id/notifycardview"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/message"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
@@ -31,16 +31,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/repair" />
+                app:srcCompat="@mipmap/message" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="8dp"
-                android:text="报修"
+                android:text="发布通知"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -49,7 +49,7 @@
 
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
-        android:id="@+id/repaircardview1"
+        android:id="@+id/notifycardview2"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -61,67 +61,42 @@
         app:cardBackgroundColor="@color/cardBg"
         >
         <LinearLayout
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="15dp"
-                android:text="主题： "
-                />
-            <EditText
-                android:id="@+id/titlecontent"
-                android:layout_width="260dp"
-                android:layout_height="40dp"
-                android:background="@drawable/inputstyle"
-                android:maxLines="1"
-                android:hint="请输入报修详情"
-                android:maxLength="10"
-                android:padding="1dp"
-                android:textSize="15sp" >
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/detail"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
-                android:text="详情： "
+                android:text="通知内容： "
                 />
             <EditText
-                android:id="@+id/detailcontent"
+                android:id="@+id/noti_content"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:maxLength="100"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:inputType="textMultiLine"
                 android:background="@drawable/inputstyle"
                 android:gravity="start|top"
-                android:hint="请输入报修详情"
+                android:hint="请输入公告详情"
                 android:minLines="10"
-                 >
+                >
             </EditText>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
     <Button
-        android:id="@+id/buttonconfirm"
+        android:id="@+id/send"
         android:layout_width="match_parent"
         android:background="@drawable/button_style"
         android:layout_height="wrap_content"
-        android:text="保存修改"
+        android:text="确认发布"
 
         android:layout_margin="8dp"
 

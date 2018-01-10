@@ -1,6 +1,10 @@
 package com.example.lpf.finaldemo;
 
 import android.content.DialogInterface;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -53,7 +57,6 @@ public class DormInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dormitory_layout);
-
         init();
         dataInit();
         setOnClickListener();  // 按键监听
@@ -84,6 +87,20 @@ public class DormInfoActivity extends AppCompatActivity {
         wAdapter = new LvAdapter(waterDatas);
         wListView.setAdapter(wAdapter);
         sAdapter = new SimpleAdapter(this, stuList, R.layout.student_item_layout, mStrs, ids);
+
+        sAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object data,
+                                        String textRepresentation) {
+                if (view instanceof ImageView && data instanceof Bitmap) {
+                    ImageView iv = (ImageView) view;
+                    iv.setImageBitmap((Bitmap) data);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         sListView.setAdapter(sAdapter);
     }
 
@@ -93,6 +110,22 @@ public class DormInfoActivity extends AppCompatActivity {
             public void run() {
                 String ret = DBUtil.QueryDormInfo(dorm_id);
                 Message msg = new Message();
+
+                String[] v = ret.split(",");
+                String stu1_id = v[14];
+                String stu2_id = v[15];
+                String stu3_id = v[16];
+                String stu4_id = v[17];
+                ArrayList<byte[]> pic = new ArrayList<>();
+                byte []pic1 = DBUtil.loadImage(stu1_id);//图片
+                pic.add(pic1);
+                pic1 = DBUtil.loadImage(stu2_id);//图片
+                pic.add(pic1);
+                pic1 = DBUtil.loadImage(stu3_id);//图片
+                pic.add(pic1);
+                pic1 = DBUtil.loadImage(stu4_id);//图片
+                pic.add(pic1);
+
                 msg.what = 1004;
                 msg.obj = ret;
                 mHandler.sendMessage(msg);
@@ -108,6 +141,11 @@ public class DormInfoActivity extends AppCompatActivity {
                 msg2.what = 1006;
                 msg2.obj = ret2;
                 mHandler.sendMessage(msg2);
+
+                Message msg3 = new Message();
+                msg3.what = 1011;
+                msg3.obj = pic;
+                mHandler.sendMessage(msg3);
             }
         });
         thread.start();
@@ -153,35 +191,37 @@ public class DormInfoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(ISlide iSlideView, View view, final int position) {
                 // listview的单击事件
-                if (isStudent) {
-                    AlertDialog.Builder message = new AlertDialog.Builder(DormInfoActivity.this);
-                    message.setTitle("确认订单");
-                    message.setMessage("确认订单已完成？");
-                    message.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 在数据库中进行update数据
-                            final Thread thread = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String R_id = repairDatas.get(position).get("id");
-                                    DBUtil.UpdateRepair(R_id);
-                                    Message msg = new Message();
-                                    msg.arg1 = position;
-                                    msg.what = 1009;
-                                    mHandler.sendMessage(msg);
-                                }
-                            });
-                            thread.start();
-                        }
-                    });
-                    message.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    message.create().show();
-                }
-                else {
-                    Toast.makeText(DormInfoActivity.this, "没有确认权限", Toast.LENGTH_SHORT).show();
+                if(repairDatas.get(position).get("check_done").equals("0")){
+                    if (isStudent) {
+                        AlertDialog.Builder message = new AlertDialog.Builder(DormInfoActivity.this);
+                        message.setTitle("确认订单");
+                        message.setMessage("确认订单已完成？");
+                        message.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 在数据库中进行update数据
+                                final Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String R_id = repairDatas.get(position).get("id");
+                                        DBUtil.UpdateRepair(R_id);
+                                        Message msg = new Message();
+                                        msg.arg1 = position;
+                                        msg.what = 1009;
+                                        mHandler.sendMessage(msg);
+                                    }
+                                });
+                                thread.start();
+                            }
+                        });
+                        message.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        message.create().show();
+                    }
+                    else {
+                        Toast.makeText(DormInfoActivity.this, "没有确认权限", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
@@ -228,35 +268,37 @@ public class DormInfoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(ISlide iSlideView, View view, final int position) {
                 // listview的单击事件
-                if (isStudent) {
-                    AlertDialog.Builder message = new AlertDialog.Builder(DormInfoActivity.this);
-                    message.setTitle("确认订单");
-                    message.setMessage("确认订单已完成？");
-                    message.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 在数据库中进行update数据
-                            final Thread thread = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String W_id = waterDatas.get(position).get("id");
-                                    DBUtil.UpdateWater(W_id);
-                                    Message msg = new Message();
-                                    msg.arg1 = position;
-                                    msg.what = 1010;
-                                    mHandler.sendMessage(msg);
-                                }
-                            });
-                            thread.start();
-                        }
-                    });
-                    message.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    message.create().show();
-                }
-                else {
-                    Toast.makeText(DormInfoActivity.this, "没有确认权限", Toast.LENGTH_SHORT).show();
+                if(waterDatas.get(position).get("check_done").equals("0")) {
+                    if (isStudent) {
+                        AlertDialog.Builder message = new AlertDialog.Builder(DormInfoActivity.this);
+                        message.setTitle("确认订单");
+                        message.setMessage("确认订单已完成？");
+                        message.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 在数据库中进行update数据
+                                final Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String W_id = waterDatas.get(position).get("id");
+                                        DBUtil.UpdateWater(W_id);
+                                        Message msg = new Message();
+                                        msg.arg1 = position;
+                                        msg.what = 1010;
+                                        mHandler.sendMessage(msg);
+                                    }
+                                });
+                                thread.start();
+                            }
+                        });
+                        message.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        message.create().show();
+                    }
+                    else {
+                        Toast.makeText(DormInfoActivity.this, "没有确认权限", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
@@ -413,10 +455,38 @@ public class DormInfoActivity extends AppCompatActivity {
                         waterDatas.get(position4).put("check_done", "1");
                         wAdapter.notifyDataSetChanged();
                         break;
+                    case 1011:
+                        ArrayList<byte[]> pic = (ArrayList<byte[]>) msg.obj;
+                        if (pic.get(0)!=null) {
+                            Bitmap btm = Bytes2Bimap(pic.get(0));
+                            stuList.get(0).put("stu_img", btm);//加载头像
+                        }
+                        if (pic.get(1)!=null) {
+                            Bitmap btm = Bytes2Bimap(pic.get(1));
+                            stuList.get(1).put("stu_img", btm);//加载头像
+                        }
+                        if (pic.get(2)!=null) {
+                            Bitmap btm = Bytes2Bimap(pic.get(2));
+                            stuList.get(2).put("stu_img", btm);//加载头像
+                        }
+                        if (pic.get(3)!=null) {
+                            Bitmap btm = Bytes2Bimap(pic.get(3));
+                            stuList.get(3).put("stu_img", btm);//加载头像
+                        }
+                        sAdapter.notifyDataSetChanged();
+                        break;
                     default:
                         break;
                 }
             }
+        }
+    }
+
+    public static Bitmap Bytes2Bimap(byte[] b) {//转化为bitmap
+        if (b.length != 0) {
+            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        } else {
+            return null;
         }
     }
 }
