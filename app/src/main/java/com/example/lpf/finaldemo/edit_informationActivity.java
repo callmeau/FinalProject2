@@ -1,7 +1,6 @@
 package com.example.lpf.finaldemo;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,13 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.Editable;
-import android.text.Selection;
-import android.text.Spannable;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,9 +41,6 @@ import net.lemonsoft.lemonhello.LemonHelloInfo;
 import net.lemonsoft.lemonhello.LemonHelloView;
 import net.lemonsoft.lemonhello.interfaces.LemonHelloActionDelegate;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -90,7 +80,7 @@ public class edit_informationActivity extends AppCompatActivity {
     private ArrayList<String> time1;
     private ArrayList<String> time2;
     private ArrayList<String> op;
-    private ArrayList<String> stuInfo;
+    private  ArrayList<String> stuInfo;
     private int chosen;
     private static EditText hobby1;
     private static EditText hobby2;
@@ -114,10 +104,10 @@ public class edit_informationActivity extends AppCompatActivity {
     }
 
     private void Init() {
-         dbUtil = new DBUtil();
-         dor_no  = (TextView)findViewById(R.id.textView9);
-         dormname = (TextView)findViewById(R.id.textView8);
-        textName = (EditText) findViewById(R.id.textView5);
+        dbUtil = new DBUtil();
+        dor_no  = (TextView)findViewById(R.id.textView9);
+        dormname = (TextView)findViewById(R.id.buildingName);
+        textName = (EditText) findViewById(R.id.stuName);
         confirm = (Button) findViewById(R.id.button);
         school = (EditText) findViewById(R.id.school2);
         classnum = (EditText) findViewById(R.id.cls2);
@@ -277,7 +267,7 @@ public class edit_informationActivity extends AppCompatActivity {
                     chosen = 3;
                 }
                 else if(v==sleeptime){
-                    picker4.show();
+                    picker4.show();;
                 }
                 else if (v==waketime){
                     picker5.show();
@@ -382,7 +372,7 @@ public class edit_informationActivity extends AppCompatActivity {
     }
 
     private void Addselection2() {
-        for (int i = 1; i <=20; i++) {
+        for (int i = 1; i < 20; i++) {
             selection2.add(Integer.toString(i) + "班");
         }
         data.add("数学学院");
@@ -436,11 +426,11 @@ public class edit_informationActivity extends AppCompatActivity {
 //                String ret= DBUtil.QueryUsers("select top 3 * from Users");
 
 //                System.out.println(stuInfo.get(0));
-               dbUtil.Uploaddata(school.getText().toString(),major.getText().toString(),classnum.getText().toString(),
-                       sleeptime.getText().toString(),waketime.getText().toString(),
-                       hobby1.getText().toString(),hobby2.getText().toString(),hobby3.getText().toString(),
-                       plan.getText().toString(),account);
-               if (pic.length!=0)  dbUtil.uploadImage(pic,account);
+                dbUtil.Uploaddata(school.getText().toString(),major.getText().toString(),classnum.getText().toString(),
+                        sleeptime.getText().toString(),waketime.getText().toString(),
+                        hobby1.getText().toString(),hobby2.getText().toString(),hobby3.getText().toString(),
+                        plan.getText().toString(),account);
+                if (pic.length!=0)  dbUtil.uploadImage(pic,account);
                 Message msg = new Message();
                 msg.what = 1002;
                 mHandler.sendMessage(msg);
@@ -470,7 +460,7 @@ public class edit_informationActivity extends AppCompatActivity {
                                 .setProportionOfDeviation(0.1f)
                                 .setTitle("正在保存...")
                                 .show(edit_informationActivity.this);
-                                uploadInfo();
+                        uploadInfo();
 
                     }
                 }))

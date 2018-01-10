@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/book"
@@ -9,33 +10,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_margin="4dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
+        android:layout_weight="1"
         app:cardBackgroundColor="@color/Yello"
-        >
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/Building"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="格致园三号"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +43,7 @@
                 android:id="@+id/dormitory_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:text="B703"
                 android:textSize="18sp"
@@ -56,36 +55,38 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginRight="32dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/my_dormitory"
-                android:layout_marginRight="32dp"
                 app:layout_constraintVertical_bias="0.521"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:srcCompat="@mipmap/my_dormitory" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@color/lightGrey">
 
     </View>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="9"
         >
 
         <include
-            android:id="@+id/repair_list"
+            android:id="@+id/notification_list"
             layout="@layout/repair_list_layout"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="380dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
 
@@ -94,20 +95,20 @@
             layout="@layout/water_list_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_group"
-            android:layout_alignBottom="@+id/repair_list"
+            android:layout_above="@+id/button_group2"
+            android:layout_alignBottom="@+id/notification_list"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toEndOf="@+id/repair_list" />
+            android:layout_toEndOf="@+id/notification_list" />
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
-            android:layout_below="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
+            android:layout_below="@+id/notification_list"
             android:layout_marginTop="5dp"
             android:text="舍员"
             android:textSize="18sp" />
@@ -118,7 +119,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
             android:layout_below="@+id/textTitle"
             android:background="@color/lightGrey"
             android:id="@+id/line">
@@ -127,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="520dp"
             android:layout_alignEnd="@+id/water_list"
-            android:layout_alignStart="@+id/repair_list"
+            android:layout_alignStart="@+id/notification_list"
             android:layout_below="@+id/line"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"

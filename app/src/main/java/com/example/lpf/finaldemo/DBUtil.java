@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -40,6 +41,106 @@ public class DBUtil
         return dbConn;
     }
 
+    // 根据学生账号获取个人信息
+    public static ArrayList<String> QueryStu(String account) {
+        ArrayList<String> result = new ArrayList<>();
+        String d_id = "";//宿舍id
+        String d_no = "";//宿舍号
+        String name="";//名字
+        String no="";//学号
+        String gender="";
+        String academy = "";
+        String faculty = "";
+        String classnum = "";
+        String sleeptime = "";
+        String waketime = "";
+        String hobby1 = "";
+        String hobby2 = "";
+        String hobby3 = "";
+        String plan = "";
+        String building_id= "";//宿舍楼id
+        String building_name="";//宿舍楼号
+        String sql = "select * from student where S_account = '"+account+"'";
+        try {
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                name = rs.getString("S_name");//0
+                 no=rs.getString("S_no");//1
+                 gender=rs.getString("S_gender");//2
+                 academy = rs.getString("S_academy");//3
+                 faculty = rs.getString("S_faculty");//4
+                 classnum = rs.getString("S_class");//5
+                 sleeptime = rs.getString("S_sleeptime");//6
+                 waketime = rs.getString("S_waketime");//7
+                 hobby1 = rs.getString("S_hobby1");//8
+                 hobby2 = rs.getString("S_hobby2");;//9
+                 hobby3 = rs.getString("S_hobby3");;//10
+                 plan = rs.getString("S_plan");//11
+                 d_id = rs.getString("S_dormId");
+                result.add(name);//0
+                result.add(no);//1
+                result.add(gender);//2;
+                result.add(academy);//3
+                result.add(faculty);//4
+                result.add(classnum);//5
+                result.add(sleeptime);//6
+                result.add(waketime);//7
+                result.add(hobby1);//8
+                result.add(hobby2);//9
+                result.add(hobby3);//10
+                result.add(plan);//11
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+
+            sql="select * from Dormitory where D_id = "+d_id;
+            Connection conn1 = getSQLConnection();
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs1 = stmt1.executeQuery(sql);
+            if(rs1.next())
+            {
+                building_id = rs1.getString("D_buildingId");
+                d_no = rs1.getString("D_no");
+            }
+            rs1.close();
+            stmt1.close();
+            conn1.close();
+
+            sql="select * from Building where B_id = "+building_id;
+            Connection conn2 = getSQLConnection();
+            Statement stmt2 = conn2.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(sql);
+            if(rs2.next()){
+                building_name=rs2.getString("B_name");
+            }
+            result.add(building_name);//12  宿舍楼名称
+            rs2.close();
+            stmt2.close();
+            conn2.close();
+
+            /*sql = "select * from stu_query where This_stu = '"+account+"'";
+            Connection conn2 = getSQLConnection();
+            Statement stmt2 = conn2.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(sql);
+            if(rs2.next()) d_no=rs2.getString("D_no");*/
+            result.add(d_no);//13宿舍号
+            result.add(building_id);//14宿舍楼id
+            result.add(d_id);//15宿舍id
+            //rs2.close();
+            //stmt.close();
+            //onn.close();
+            System.out.println("查询学生成功");
+            System.out.println("-----------------------");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("-----------------------");
+        }
+        return result;
+    }
 
     //调用存储过程更新dormlist调整宿舍
     public static void UpdateExchange(String stu1,String stu2,String stu3,String stu4,String stu5,String stu6,String stu7,String stu8,int room1,int room2){
@@ -92,127 +193,6 @@ public class DBUtil
         }
         return sname;
     }
-  
-  /*
-    // 根据管理员账号获取所管理楼栋的宿舍
-    public static String QueryAllDorm2(String a_account)
-    {
-        String result = "";
-        try
-        {
-            Connection conn = getSQLConnection();
-            CallableStatement stmt = conn.prepareCall("{call PROC_SELECT_STUDENTS(?)}");
-            stmt.setString(1, a_account);
-            stmt.execute();
-            ResultSet rs = stmt.getResultSet();
-            while (rs.next()) {
-                String dorm_id = rs.getString("D_id");
-                String building_id = rs.getString("D_buildingId");
-                String dorm_no = rs.getString("D_no");
-                String stu1 = rs.getString("D_stu1");
-                String stu2 = rs.getString("D_stu2");
-                String stu3 = rs.getString("D_stu3");
-                String stu4 = rs.getString("D_stu4");
-                result += dorm_id+","+building_id+","+dorm_no+","+stu1+","+stu2+","+stu3+","+stu4+"\n";
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
-            System.out.println("查询成功");
-            System.out.println("-----------------------");
-            System.out.println("查询结果：\n"+result);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-            System.out.println("查询失败");
-            System.out.println("-----------------------");
-        }
-        return result;
-    }
-    */
-
-
-    // 根据学生账号获取学生信息
-    public static ArrayList<String> QueryStu(String account) {
-        ArrayList<String> result = new ArrayList<>();
-        String d_id = "";
-        String d_name = "";
-        String d_no = "";//宿舍号
-        String name="";//名字
-        String no="";//学号
-        String gender="";
-        String academy = "";
-        String faculty = "";
-        String classnum = "";
-        String sleeptime = "";
-        String waketime = "";
-        String hobby1 = "";
-        String hobby2 = "";
-        String hobby3 = "";
-        String plan = "";
-        String sql = "select * from student where S_account = '"+account+"'";
-        try {
-            Connection conn = getSQLConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()){
-                name = rs.getString("S_name");
-                 no=rs.getString("S_no");
-                 gender=rs.getString("S_gender");
-                 academy = rs.getString("S_academy");
-                 faculty = rs.getString("S_faculty");
-                 classnum = rs.getString("S_class");
-                 sleeptime = rs.getString("S_sleeptime");
-                 waketime = rs.getString("S_waketime");
-                 hobby1 = rs.getString("S_hobby1");
-                 hobby2 = rs.getString("S_hobby2");
-                 hobby3 = rs.getString("S_hobby3");
-                 plan = rs.getString("S_plan");
-                 d_id = rs.getString("S_dormId");
-                result.add(name);
-                result.add(no);
-                result.add(gender);
-                result.add(academy);
-                result.add(faculty);
-                result.add(classnum);
-                result.add(sleeptime);
-                result.add(waketime);
-                result.add(hobby1);
-                result.add(hobby2);
-                result.add(hobby3);
-                result.add(plan);
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-            sql="select * from Building where B_id = "+d_id;
-            Connection conn1 = getSQLConnection();
-            Statement stmt1 = conn1.createStatement();
-            ResultSet rs1 = stmt1.executeQuery(sql);
-            if(rs1.next()) d_name=rs1.getString("B_name");
-            result.add(d_name);//宿舍名称
-            rs1.close();
-            stmt1.close();
-            conn1.close();
-
-            sql = "select * from stu_query where This_stu = '"+account+"'";
-            Connection conn2 = getSQLConnection();
-            Statement stmt2 = conn2.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(sql);
-            if(rs2.next()) d_no=rs2.getString("D_no");
-            result.add(d_no);//宿舍号
-            rs2.close();
-            stmt2.close();
-            conn2.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e);
-            System.out.println("-----------------------");
-        }
-        return result;
-    }
-
 
     // 根据管理员账号获取所管理楼栋的宿舍
     public static String QueryAllDorm(String a_account)
@@ -465,7 +445,7 @@ public class DBUtil
                 }
 
                 result += building_name+","+dorm_no+","+stu1_name+","+stu1_no+","+stu1_school+","+stu2_name+","+stu2_no+","+stu2_school+
-                        ","+stu3_name+","+stu3_no+","+stu3_school+","+stu4_name+","+stu4_no+","+stu4_school+"\n";
+                        ","+stu3_name+","+stu3_no+","+stu3_school+","+stu4_name+","+stu4_no+","+stu4_school+","+stu1+","+stu2+","+stu3+","+stu4+"\n";
             }
             rs.close();
             stmt.close();
@@ -538,7 +518,7 @@ public class DBUtil
             while (rs.next()) {
                 String W_id = rs.getString("W_id");
                 String W_date = rs.getString("W_date");
-                String W_num = rs.getString("W_num");
+                String W_num = "数量:"+rs.getString("W_num");
                 String W_check = rs.getString("W_iffinish");
                 if (W_check == null || W_check.equals("")){
                     W_check = "0";
@@ -668,11 +648,11 @@ public class DBUtil
 
 
 
-    public static void Order(String num,int id){
+    public static void Order(String num,String id){
         try {
             String sql = String.format("INSERT INTO WaterOrder (W_num,W_date,W_iffinish,W_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    num,"0",Integer.toString(id));
+                    num,"0",id);
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -682,15 +662,15 @@ public class DBUtil
             e.printStackTrace();
             System.out.println("e");
             System.out.println("上传失败");
-            System.out.println("-----------------------");
+            System.out.println(id);
         }
     }
 
-    public static void repair(String title,String content,int id){
+    public static void repair(String title,String content,String id){
         try {
-            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,W_dormId)" +
+            String sql = String.format("INSERT INTO RepairInfo (R_detail,R_starttime,R_ifrepair,R_dormId)" +
                             "Values('%s',GETDATE(),'%s','%s')",
-                    title+": "+content,"0",Integer.toString(id));
+                    title+": "+content,"0",id);
             Connection conn = getSQLConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql);
@@ -698,7 +678,7 @@ public class DBUtil
             conn.close();
         }catch (SQLException e){
             e.printStackTrace();
-            System.out.println("e");
+            System.out.println(e);
             System.out.println("上传失败");
             System.out.println("-----------------------");
         }
@@ -759,6 +739,8 @@ public class DBUtil
             rs.close();
             pStatement.close();
             conn.close();
+            System.out.println("加载成功");
+            System.out.println("-----------------------");
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println(e);
@@ -769,6 +751,228 @@ public class DBUtil
 
     }
 
+    //根据用户名查询密码以检查是否匹配,mode为 0 表示学生，mode为 1 表示管理员
+    public static String QuerryUserPassword(String id , int mode)
+    {
+        String ret="";
+        try
+        {
+            String sql="";
+            if(mode==1)//管理员
+                sql = "select A_password from Admin where A_account = '"+id+"'";
+            else if(mode==0)//学生
+                sql = "select S_password from Student where S_account = '"+id+"'";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                if(mode==1)
+                    ret = rs.getString("A_password");
+                else if(mode==0)
+                    ret = rs.getString("S_password");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
 
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return ret;
+    }
 
+    //根据管理员account查询管理员名字和所管理的楼名,以及宿舍楼id
+    public static Map<String,String> QuerryAdmin(String account)
+    {
+        Map<String,String> map = new HashMap<String , String>();
+        try{
+            String sql1 = "select A_name from Admin where A_account = '"+account+"'";
+            Connection conn1 = getSQLConnection();
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs1 = stmt1.executeQuery(sql1);
+            while(rs1.next())
+            {
+                String Admin_name = rs1.getString("A_name");
+                map.put("AdminName",Admin_name);
+                System.out.println(Admin_name);
+            }
+            rs1.close();
+            conn1.close();
+            stmt1.close();
+
+            String sql2 = "select B_name from Building where B_admin = '"+account+"'";
+            Connection conn2 = getSQLConnection();
+            Statement stmt2 = conn2.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(sql2);
+            while(rs2.next())
+            {
+                String buildingName = rs2.getString("B_name");
+                map.put("BuildingName",buildingName);
+                System.out.println(buildingName);
+            }
+            rs2.close();
+            stmt2.close();
+            conn2.close();
+
+            String sql3 = "select B_id from Building where B_admin = '"+account+"'";
+            Connection conn3 = getSQLConnection();
+            Statement stmt3 = conn3.createStatement();
+            ResultSet rs3 = stmt3.executeQuery(sql3);
+            while(rs3.next())
+            {
+                String buildingId = rs3.getString("B_id");
+                map.put("Buildingid",buildingId);
+                System.out.println(buildingId);
+            }
+            rs3.close();
+            stmt3.close();
+            conn3.close();
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return map;
+    }
+
+    //根据管理员account查询报修表
+    public static List<item> QuerryRepairByA_account(String account)
+    {
+        List<item> list = new ArrayList<item>();
+        try
+        {
+            String sql = "select * from repair_query where A_account='"+account+"'";//and R_ifrepair = '0'";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                String dorm_name = rs.getString("D_no");
+                String date = rs.getString("R_starttime");
+                String details = rs.getString("R_detail");
+                System.out.println(details);
+                item i = new item(dorm_name,date,details);
+                list.add(i);
+                System.out.println(dorm_name);
+                System.out.println(date);
+                System.out.println(details);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+            System.out.println("查询成功");
+            System.out.println("-----------------------");
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return list;
+    }
+
+    //根据管理员account查询订水表
+    public static List<item> QuerryWaterByA_account(String account)
+    {
+        List<item> list = new ArrayList<item>();
+        try
+        {
+            String sql = "select * from order_query where A_account='"+account+"'";// and W_iffinish = '0'";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                String dorm_name = rs.getString("D_no");
+                String date = rs.getString("W_date").split(" ")[0];
+                String num = rs.getString("W_num");
+                String details = "数量："+num+"桶";
+                System.out.println(details);
+                item i = new item(dorm_name,date,details);
+                list.add(i);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return list;
+    }
+
+    //根据宿舍楼id查询通知
+    public static List<item> QuerryNotification(String buildingId)
+    {
+        List<item> list = new ArrayList<item>();
+        try
+        {
+            String sql = "select * from Notification where N_obj = '"+buildingId+"'";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                String date = rs.getString("N_date");
+                String detail = rs.getString("N_detail");
+                System.out.println(detail);
+                item i = new item("通知",date,detail);
+                list.add(i);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+            System.out.println("查询通知成功");
+            System.out.println("-----------------------");
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return list;
+    }
+
+    //根据宿舍id查询订水表，输出为一个List
+    public static List<item> QuerryWater(String dormId)
+    {
+        List<item> list = new ArrayList<item>();
+        try
+        {
+            String sql = "select * from order_query where W_dormId = '"+dormId+"'";
+            Connection conn = getSQLConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                String date = rs.getString("W_date").split(" ")[0];;
+                String detail = "数量："+rs.getString("W_num")+"桶";
+                System.out.println(detail);
+                item i = new item("订水",date,detail);
+                list.add(i);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+            System.out.println("查询订水表成功");
+            System.out.println("-----------------------");
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("查询失败");
+            System.out.println("-----------------------");
+        }
+        return list;
+    }
 }

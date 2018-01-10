@@ -51,8 +51,8 @@ public class LvAdapter extends SlideBaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repair_list, null);
             holder.id = (TextView) convertView.findViewById(R.id.order_id);
-            holder.hint1 = (TextView) convertView.findViewById(R.id.hint1);
-            holder.hint2 = (TextView) convertView.findViewById(R.id.hint2);
+            //holder.hint1 = (TextView) convertView.findViewById(R.id.hint1);
+            //holder.hint2 = (TextView) convertView.findViewById(R.id.hint2);
             holder.date = (TextView) convertView.findViewById(R.id.order_date);
             holder.detail = (TextView) convertView.findViewById(R.id.order_detail);
             holder.check_done = (CheckBox) convertView.findViewById(R.id.order_check);
@@ -66,8 +66,8 @@ public class LvAdapter extends SlideBaseAdapter {
         bindSlidePosition(holder.mSlideTouchView, position);//必须调用
 
         holder.id.setText(String.valueOf(list.get(position).get("id")));
-        holder.hint1.setText(String.valueOf(list.get(position).get("hint1")));
-        holder.hint2.setText(String.valueOf(list.get(position).get("hint2")));
+        //holder.hint1.setText(String.valueOf(list.get(position).get("hint1")));
+        //holder.hint2.setText(String.valueOf(list.get(position).get("hint2")));
         holder.date.setText(String.valueOf(list.get(position).get("o_date")));
         holder.detail.setText(String.valueOf(list.get(position).get("o_detail")));
         if(!String.valueOf(list.get(position).get("check_done")).equals("0")){

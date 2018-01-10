@@ -5,27 +5,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/book">
-    <android.support.v7.widget.CardView
-        android:id="@+id/notifycardview"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/notifycardview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="70dp"
         android:layout_margin="8dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
         app:cardBackgroundColor="@color/Yello"
-        >
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/message"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="39dp"
+                android:layout_height="40dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="8dp"
@@ -55,40 +54,40 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         app:cardBackgroundColor="@color/cardBg"
         >
         <LinearLayout
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/detail"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:text="通知内容： "
                 />
+
             <EditText
                 android:id="@+id/noti_content"
-                android:layout_width="260dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:maxLength="100"
-                android:layout_marginTop="30dp"
-                android:inputType="textMultiLine"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/inputstyle"
                 android:gravity="start|top"
                 android:hint="请输入公告详情"
+                android:inputType="textMultiLine"
+                android:maxLength="100"
                 android:minLines="10"
-                >
-            </EditText>
+                android:textSize="15sp"></EditText>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
