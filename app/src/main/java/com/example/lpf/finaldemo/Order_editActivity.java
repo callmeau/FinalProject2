@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class Order_editActivity extends AppCompatActivity {
     private String account;
-    private int id;
+    private String id;
     private Button confirm;
     private EditText num;
     private OptionsPickerView<String> picker;
@@ -43,7 +43,7 @@ public class Order_editActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_edit);
         account=getIntent().getStringExtra("stu_account");//学生账号
-        id=getIntent().getIntExtra("dorm_id",0);//宿舍id
+        id=getIntent().getStringExtra("dorm_id");//宿舍id
 
         dbUtil = new DBUtil();
         confirm = (Button)findViewById(R.id.confirm);
