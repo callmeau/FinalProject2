@@ -33,6 +33,7 @@ public class Notification_EditActivity extends AppCompatActivity {
     private int notify_id;
     private Button confirm;
     private EditText content;
+    private String objid;
     private int obj_id;
     private CardView c1;
     private CardView c2;
@@ -45,7 +46,8 @@ public class Notification_EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_layout);
         account = getIntent().getStringExtra("a_account");
-        obj_id = getIntent().getIntExtra("building_id",0);
+        objid = getIntent().getStringExtra("building_id");
+        obj_id = Integer.parseInt(objid);
         content = (EditText)findViewById(R.id.noti_content);
         confirm = (Button)findViewById(R.id.send);
         c1 = (CardView)findViewById(R.id.notifycardview);
