@@ -53,6 +53,7 @@ public class DormListActivity extends AppCompatActivity {
         a_account = this.getIntent().getStringExtra("a_account");
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
+        mSearchView.setIconified(false);
         listView = (ListView) findViewById(R.id.dorm_list);
         datas = new ArrayList<>();
         dormList = new ArrayList<>();
